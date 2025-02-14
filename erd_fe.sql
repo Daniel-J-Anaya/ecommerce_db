@@ -5,22 +5,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema ecommercedb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `ecommercedb` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema ecommercedb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `ecommercedb` DEFAULT CHARACTER SET utf8 ;
+USE `ecommercedb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`product_table`
+-- Table `ecommercedb`.`product_table`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`product_table` ;
+DROP TABLE IF EXISTS `ecommercedb`.`product_table` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`product_table` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table` (
   `product_table_id` INT NOT NULL AUTO_INCREMENT,
   `product_name` VARCHAR(30) NOT NULL,
   `description` MEDIUMTEXT NOT NULL,
@@ -33,11 +33,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`address`
+-- Table `ecommercedb`.`address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`address` ;
+DROP TABLE IF EXISTS `ecommercedb`.`address` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`address` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`address` (
   `addresses_id` INT UNSIGNED NOT NULL,
   `street_address` VARCHAR(225) NOT NULL,
   `city` VARCHAR(100) NOT NULL,
@@ -49,11 +49,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`users`
+-- Table `ecommercedb`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`users` ;
+DROP TABLE IF EXISTS `ecommercedb`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`users` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(100) NOT NULL,
   `last_name` VARCHAR(100) NOT NULL,
@@ -67,18 +67,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users` (
   INDEX `users_address_fk1_idx` (`address_id` ASC) VISIBLE,
   CONSTRAINT `users_address_fk1`
     FOREIGN KEY (`address_id`)
-    REFERENCES `mydb`.`address` (`addresses_id`)
+    REFERENCES `ecommercedb`.`address` (`addresses_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`wishlist`
+-- Table `ecommercedb`.`wishlist`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`wishlist` ;
+DROP TABLE IF EXISTS `ecommercedb`.`wishlist` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`wishlist` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`wishlist` (
   `wishlist_id` INT NOT NULL,
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `added_at` TIMESTAMP(8) NOT NULL,
@@ -86,18 +86,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`wishlist` (
   INDEX `fk_wishlist_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_wishlist_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `ecommercedb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`card`
+-- Table `ecommercedb`.`card`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`card` ;
+DROP TABLE IF EXISTS `ecommercedb`.`card` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`card` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`card` (
   `card_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `card_number` INT NOT NULL,
   `card_cvv` INT NOT NULL,
@@ -107,11 +107,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`discounts`
+-- Table `ecommercedb`.`discounts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`discounts` ;
+DROP TABLE IF EXISTS `ecommercedb`.`discounts` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`discounts` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`discounts` (
   `discounts_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `discount_code` VARCHAR(15) NOT NULL,
   `discount_type` ENUM('percentage', 'fixed') NOT NULL,
@@ -123,11 +123,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`orders`
+-- Table `ecommercedb`.`orders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`orders` ;
+DROP TABLE IF EXISTS `ecommercedb`.`orders` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`orders` (
   `orders_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `total_price` DECIMAL(10,2) NOT NULL,
@@ -140,23 +140,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
   INDEX `order_discountsfk2_idx` (`discount_id` ASC) VISIBLE,
   CONSTRAINT `orders_usersfk1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `ecommercedb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `order_discountsfk2`
     FOREIGN KEY (`discount_id`)
-    REFERENCES `mydb`.`discounts` (`discounts_id`)
+    REFERENCES `ecommercedb`.`discounts` (`discounts_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`payments`
+-- Table `ecommercedb`.`payments`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`payments` ;
+DROP TABLE IF EXISTS `ecommercedb`.`payments` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`payments` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`payments` (
   `payments_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` INT UNSIGNED NOT NULL,
   `card_id` INT UNSIGNED NOT NULL,
@@ -169,28 +169,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`payments` (
   INDEX `payments_orders_fk3_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `payments_card_fk1`
     FOREIGN KEY (`card_id`)
-    REFERENCES `mydb`.`card` (`card_id`)
+    REFERENCES `ecommercedb`.`card` (`card_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `payments_users_fk2`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `ecommercedb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `payments_orders_fk3`
     FOREIGN KEY (`order_id`)
-    REFERENCES `mydb`.`orders` (`orders_id`)
+    REFERENCES `ecommercedb`.`orders` (`orders_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`returns`
+-- Table `ecommercedb`.`returns`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`returns` ;
+DROP TABLE IF EXISTS `ecommercedb`.`returns` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`returns` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`returns` (
   `returns_id` INT NOT NULL,
   `order_id` INT UNSIGNED NOT NULL,
   `return_reason` TEXT(300) NOT NULL,
@@ -200,18 +200,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`returns` (
   INDEX `returns_fk1_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `returns_fk1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `mydb`.`orders` (`orders_id`)
+    REFERENCES `ecommercedb`.`orders` (`orders_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`category_table`
+-- Table `ecommercedb`.`category_table`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`category_table` ;
+DROP TABLE IF EXISTS `ecommercedb`.`category_table` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`category_table` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`category_table` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT(100) NOT NULL,
@@ -221,11 +221,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`product_table_wishlist`
+-- Table `ecommercedb`.`product_table_wishlist`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`product_table_wishlist` ;
+DROP TABLE IF EXISTS `ecommercedb`.`product_table_wishlist` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`product_table_wishlist` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table_wishlist` (
   `product_table_id` INT NOT NULL,
   `wishlist_id` INT NOT NULL,
   PRIMARY KEY (`product_table_id`, `wishlist_id`),
@@ -233,23 +233,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`product_table_wishlist` (
   INDEX `fk_product_table_has_wishlist_product_table1_idx` (`product_table_id` ASC) VISIBLE,
   CONSTRAINT `fk_product_table_has_wishlist_product_table1`
     FOREIGN KEY (`product_table_id`)
-    REFERENCES `mydb`.`product_table` (`product_table_id`)
+    REFERENCES `ecommercedb`.`product_table` (`product_table_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_table_has_wishlist_wishlist1`
     FOREIGN KEY (`wishlist_id`)
-    REFERENCES `mydb`.`wishlist` (`wishlist_id`)
+    REFERENCES `ecommercedb`.`wishlist` (`wishlist_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`product_table_has_orders`
+-- Table `ecommercedb`.`product_table_has_orders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`product_table_has_orders` ;
+DROP TABLE IF EXISTS `ecommercedb`.`product_table_has_orders` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`product_table_has_orders` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table_has_orders` (
   `product_table_id` INT NOT NULL,
   `orders_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`product_table_id`, `orders_id`),
@@ -257,23 +257,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`product_table_has_orders` (
   INDEX `fk_product_table_has_orders_product_table1_idx` (`product_table_id` ASC) VISIBLE,
   CONSTRAINT `fk_product_table_has_orders_product_table1`
     FOREIGN KEY (`product_table_id`)
-    REFERENCES `mydb`.`product_table` (`product_table_id`)
+    REFERENCES `ecommercedb`.`product_table` (`product_table_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_table_has_orders_orders1`
     FOREIGN KEY (`orders_id`)
-    REFERENCES `mydb`.`orders` (`orders_id`)
+    REFERENCES `ecommercedb`.`orders` (`orders_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`users_card`
+-- Table `ecommercedb`.`users_card`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`users_card` ;
+DROP TABLE IF EXISTS `ecommercedb`.`users_card` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`users_card` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`users_card` (
   `user_id` INT UNSIGNED NOT NULL,
   `card_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`, `card_id`),
@@ -281,23 +281,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users_card` (
   INDEX `fk_users_has_card_users1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_has_card_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `ecommercedb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_card_card1`
     FOREIGN KEY (`card_id`)
-    REFERENCES `mydb`.`card` (`card_id`)
+    REFERENCES `ecommercedb`.`card` (`card_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`product_table_category_table`
+-- Table `ecommercedb`.`product_table_category_table`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`product_table_category_table` ;
+DROP TABLE IF EXISTS `ecommercedb`.`product_table_category_table` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`product_table_category_table` (
+CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table_category_table` (
   `product_table_id` INT NOT NULL,
   `category_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`product_table_id`, `category_id`),
@@ -305,12 +305,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`product_table_category_table` (
   INDEX `fk_product_table_has_category_table_product_table1_idx` (`product_table_id` ASC) VISIBLE,
   CONSTRAINT `fk_product_table_has_category_table_product_table1`
     FOREIGN KEY (`product_table_id`)
-    REFERENCES `mydb`.`product_table` (`product_table_id`)
+    REFERENCES `ecommercedb`.`product_table` (`product_table_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_table_has_category_table_category_table1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `mydb`.`category_table` (`category_id`)
+    REFERENCES `ecommercedb`.`category_table` (`category_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
