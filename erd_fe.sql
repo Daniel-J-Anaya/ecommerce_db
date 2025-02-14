@@ -5,7 +5,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema ecommercedb
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `ecommercedb` ;
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`orders` (
   INDEX `order_discountsfk2_idx` (`discount_id` ASC) VISIBLE,
   CONSTRAINT `orders_usersfk1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `ecommercedb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `order_discountsfk2`
