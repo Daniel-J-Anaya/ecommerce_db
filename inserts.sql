@@ -44,6 +44,8 @@ USE library;
 -- 2. Follow the next prompts to experiment and play with the database
 -- --------------------------------------------------------------------
 
+
+-------------------
 START TRANSACTION;
 
 INSERT INTO location
@@ -92,8 +94,31 @@ VALUES
 COMMIT;
 
 ----------------
----- orders ---- Garrett
+---- orders ---- 
 ----------------
+CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
+  `orders_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `total_price` DECIMAL(10,2) NOT NULL,
+  `order_status` ENUM('pending', 'shipped', 'delivered') NOT NULL,
+  `created_at` DATE NOT NULL,
+  `discount_id` INT UNSIGNED NULL,
+  PRIMARY KEY (`orders_id`),
+  UNIQUE INDEX `orders_id_UNIQUE` (`orders_id` ASC) VISIBLE,
+  INDEX `fk_orders_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `order_discountsfk2_idx` (`discount_id` ASC) VISIBLE,
+  CONSTRAINT `orders_usersfk1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `order_discountsfk2`
+    FOREIGN KEY (`discount_id`)
+    REFERENCES `mydb`.`discounts` (`discounts_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 -----------------
 ---- returns ----
