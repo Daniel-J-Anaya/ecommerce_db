@@ -25,27 +25,6 @@
 ---------------
 ---- users ----
 ---------------
-CREATE TABLE IF NOT EXISTS `mydb`.`users` (
-  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(100) NOT NULL,
-  `last_name` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `password_hash` VARCHAR(100) NOT NULL,
-  `phone_number` VARCHAR(100) NOT NULL,
-  `address_id` INT UNSIGNED NOT NULL,
-  `created_at` DATE NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  INDEX `users_address_fk1_idx` (`address_id` ASC) VISIBLE,
-  CONSTRAINT `users_address_fk1`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `mydb`.`address` (`addresses_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-------------
 SET AUTOCOMMIT=0;
 
 USE mydb;
@@ -69,76 +48,121 @@ USE mydb;
 -------------------
 START TRANSACTION;
 
-INSERT INTO location
-(location_name)
+INSERT INTO users
+(user_id)
 VALUES
-('Rexburg General Library');
+('CHECK THIS CODE');
 
-INSERT INTO author
-( author_fname
-, author_lname )
+INSERT INTO users
+  (first_name)
 VALUES
-( 'A.'
-, 'Carter' ),
-( 'B.'
-, 'Woods' ),
-( 'C.'
-, 'Baker' ),
-( 'D.'
-, 'Harper' ),
-( 'E.'
-, 'Lin' ),
-( 'G.'
-, 'Palmer' ),
-( 'H.'
-, 'Martinez' ),
-( 'I.'
-, 'King' ),
-( 'J.'
-, 'Reed' );
+  ('James'),
+  ('Terry'),
+  ('Jessica'),
+  ('Sophia'),
+  ('Brian');
 
-INSERT INTO genre
-(genre_name)
+INSERT INTO users
+  (last_name)
 VALUES
-('Fiction'),
-('Adventure'),
-('Sci-Fi'),
-('Historical'),
-('Cookbook'),
-('Mystery'),
-('Non-Fiction'),
-('Science'),
-('Thriller'),
-('Business'),
-('Technology');
+  ('Smith'),
+  ('Johnson'),
+  ('Williams'),
+  ('Brown'),
+  ('Jones');
+
+INSERT INTO users
+ (email)
+VALUES
+  ('JamesSmith123@gmail.com'),
+  ('TerryJohnson99@yahoo.com'),
+  ('JessicaWilliams456@hotmail.com'),
+  ('SophiaBrown22@outlook.com'),
+  ('BrianJones789@gmail.com');
+
+INSERT INTO users
+(password_hash)
+VALUES
+  ('BlueTiger45!'),
+  ('SunnyLake99?'),
+  ('GreenApple22$'),
+  ('HappyMoon88#'),
+  ('SilverTree12&');
+
+INSERT INTO users
+(phone_number)
+VALUES
+  ('(208) 456-7892'),
+  ('(208) 234-5678'),
+  ('(208) 987-6543'),
+  ('(208) 765-4321'),
+  ('(208) 543-2109');
+
+INSERT INTO users
+(address_id)
+VALUES
+  ASK ABOUT CODE
+
+INSERT INTO users
+(created_at)
+VALUES
+  ('1/20/2025'),
+  ('1/21/2025'),
+  ('1/22/2025'),
+  ('1/23/2025'),
+  ('1/24/2025');
 
 COMMIT;
 
 ----------------
 ---- orders ---- 
 ----------------
-CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
-  `orders_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT UNSIGNED NOT NULL,
-  `total_price` DECIMAL(10,2) NOT NULL,
-  `order_status` ENUM('pending', 'shipped', 'delivered') NOT NULL,
-  `created_at` DATE NOT NULL,
-  `discount_id` INT UNSIGNED NULL,
-  PRIMARY KEY (`orders_id`),
-  UNIQUE INDEX `orders_id_UNIQUE` (`orders_id` ASC) VISIBLE,
-  INDEX `fk_orders_users_idx` (`user_id` ASC) VISIBLE,
-  INDEX `order_discountsfk2_idx` (`discount_id` ASC) VISIBLE,
-  CONSTRAINT `orders_usersfk1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `order_discountsfk2`
-    FOREIGN KEY (`discount_id`)
-    REFERENCES `mydb`.`discounts` (`discounts_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+
+START TRANSACTION;
+
+INSERT INTO orders
+(orders_id)
+VALUES
+ ('CHECK THIS CODE');
+
+INSERT INTO orders
+(user_id)
+VALUES
+('CHECK THIS CODE');
+
+INSERT INTO orders
+(total_price)
+VALUES
+  ('140.00'),
+  ('110.00'),
+  ('65.00'),
+  ('160.00'),
+  ('150.00');
+
+INSERT INTO orders
+(order_status)
+VALUES
+  ('pending'),
+  ('shipped'),
+  ('shipped'),
+  ('delivered'),
+  ('delivered');
+
+INSERT INTO orders
+(created_at)
+VALUES
+  ('1/20/2025'),
+  ('1/21/2025'),
+  ('1/22/2025'),
+  ('1/23/2025'),
+  ('1/24/2025');
+
+INSERT INTO orders
+(discount_id)
+VALUES
+  ('CHECK THIS CODE');
+
+COMMIT;
 
 
 -----------------
