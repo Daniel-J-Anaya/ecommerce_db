@@ -10,6 +10,13 @@ VALUES
     (5, '6789 Birch Ln', 'Meridian', 'ID', 83642, 'USA');
 
 COMMIT;
+,
+START TRANSACTION;
+
+INSERT INTO category_table ( category_id,name,description)
+VALUES (1,'Galactic footwear','A collection of space-inspired shoes designed for those who want to walk among the stars. Featuring futuristic styles and cosmic comfort, these shoes are perfect for dreamers and explorers alike.'),(2,'Astro kicks collection','Elevate your step with the Astro Kicks Collection, where innovation meets interstellar fashion. Designed for both comfort and style, these kicks are ready for any cosmic adventure'),(3,'Cosmic Stride Series','Step boldly into the future with the Cosmic Stride Series, a lineup of gravity-defying footwear inspired by the mysteries of the universe. Walk with confidence, whether on Earth or beyond.'),(4,'Interstellar Soles','Experience the next evolution of footwear with Interstellar Soles—a range of celestial designs crafted for comfort, durability, and a style that’s light-years ahead'),(5,'Nebula Walkers',' Inspired by the beauty of the cosmos, Nebula Walkers bring a touch of the stars to your everyday journey. Sleek, stylish, and infused with futuristic flair, these shoes will take you places—literally and figuratively');
+
+COMMIT;
 Team Members:
 Danny Anaya
 Andrew Jones
