@@ -25,9 +25,30 @@
 ---------------
 ---- users ----
 ---------------
+CREATE TABLE IF NOT EXISTS `mydb`.`users` (
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(100) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `password_hash` VARCHAR(100) NOT NULL,
+  `phone_number` VARCHAR(100) NOT NULL,
+  `address_id` INT UNSIGNED NOT NULL,
+  `created_at` DATE NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
+  INDEX `users_address_fk1_idx` (`address_id` ASC) VISIBLE,
+  CONSTRAINT `users_address_fk1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `mydb`.`address` (`addresses_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+------------
 SET AUTOCOMMIT=0;
 
-USE library;
+USE mydb;
 
 -- ------------------------------------------------------------------
 -- Each Transaction usually has five parts:
