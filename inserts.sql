@@ -49,11 +49,6 @@ USE mydb;
 START TRANSACTION;
 
 INSERT INTO users
-(user_id)
-VALUES
-('CHECK THIS CODE');
-
-INSERT INTO users
   (first_name)
 VALUES
   ('James'),
@@ -99,11 +94,6 @@ VALUES
   ('(208) 543-2109');
 
 INSERT INTO users
-(address_id)
-VALUES
-  ASK ABOUT CODE
-
-INSERT INTO users
 (created_at)
 VALUES
   ('1/20/2025'),
@@ -119,16 +109,6 @@ COMMIT;
 ----------------
 
 START TRANSACTION;
-
-INSERT INTO orders
-(orders_id)
-VALUES
- ('CHECK THIS CODE');
-
-INSERT INTO orders
-(user_id)
-VALUES
-('CHECK THIS CODE');
 
 INSERT INTO orders
 (total_price)
@@ -157,10 +137,6 @@ VALUES
   ('1/23/2025'),
   ('1/24/2025');
 
-INSERT INTO orders
-(discount_id)
-VALUES
-  ('CHECK THIS CODE');
 
 COMMIT;
 
