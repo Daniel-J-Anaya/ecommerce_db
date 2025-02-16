@@ -3,14 +3,26 @@
 -----------------------
 ---- product_table ----
 -----------------------
+START TRANSACTION
 
+INSERT INTO product_table
+(product_name, description, price, stock, created_at, image)
+  
+VALUES
+('Space Shoes', 'Tired of Earth’s gravity holding you back? Step into the future with Galactic Stride™ Space Shoes—the only footwear designed to (almost) defy physics.', 140.00, 20, '1/29/2024', 'https://firefly.adobe.com/public/t2i?id=urn%3Aaaid%3Asc%3AUS%3Ab37c08e2-7a64-4fe0-ad91-9607a07a172b&ff_channel=shared_link&ff_source=Text2Image'),
+('Cosmic Loafers', 'Tired of laces? Tired of effort? Tired of planetary constraints? Slip into Cosmic Loafers™, the ultimate footwear for those who believe gravity is optional and dress codes are merely suggestions.', 110.00, 30, '1/30/2024', Null),
+('Pluto Clogs', 'Once considered a planet, now just a celestial afterthought—Pluto understands what it means to be underestimated. That’s why we created Pluto Clogs™, the ultimate shoe for those who don’t care about labels but do care about maximum comfort in the cold, unforgiving void.', 65.00, 50, '1/31/2024', Null),
+('Gravity Boots', 'Ever feel like you’re just floating through life? Wish you had a little more stability—physically, if not emotionally? Introducing Gravity Boots™, the only footwear designed to keep your feet firmly planted, even when everything else is spiraling out of control.', 160.00, 35, '2/1/2024', Null),
+('Supernova Sneakers', 'Tired of blending in like some average, low-energy star? Step up your game with Supernova Sneakers™, the only footwear inspired by the most dramatic exit in the universe. Designed for those who refuse to go out quietly.', 150.00, 55, '2/2/2024', Null);
+
+COMMIT;
 ------------------------
 ---- category_table ----
 ------------------------
 START TRANSACTION;
 
 INSERT INTO category_table 
-(name,description)
+(name, description)
 VALUES ('Galactic footwear','A collection of space-inspired shoes designed for those who want to walk among the stars. Featuring futuristic styles and cosmic comfort, these shoes are perfect for dreamers and explorers alike.'),
   ('Astro kicks collection','Elevate your step with the Astro Kicks Collection, where innovation meets interstellar fashion. Designed for both comfort and style, these kicks are ready for any cosmic adventure'),
   ('Cosmic Stride Series','Step boldly into the future with the Cosmic Stride Series, a lineup of gravity-defying footwear inspired by the mysteries of the universe. Walk with confidence, whether on Earth or beyond.'),
