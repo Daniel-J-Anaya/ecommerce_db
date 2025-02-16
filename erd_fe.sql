@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table` (
   `price` DECIMAL NOT NULL,
   `stock` INT NOT NULL,
   `created_at` VARCHAR(45) NOT NULL,
-  `image` VARCHAR(45) NULL,
+  `image` VARCHAR(200) NULL,
   PRIMARY KEY (`product_table_id`))
 ENGINE = InnoDB;
 
@@ -214,7 +214,7 @@ DROP TABLE IF EXISTS `ecommercedb`.`category_table` ;
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`category_table` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `description` TEXT(100) NOT NULL,
+  `description` TEXT(200) NOT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `category_id_UNIQUE` (`category_id` ASC) VISIBLE)
 ENGINE = InnoDB;
