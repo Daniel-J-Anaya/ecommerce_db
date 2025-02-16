@@ -1,3 +1,15 @@
+SET AUTOCOMMIT=0;
+
+USE ecommerce_db;
+
+-- ------------------------------------------------------------------
+-- Each Transaction usually has five parts:
+-- 1. START TRANSACTION;
+-- 2. SAVEPOINT `savepoint name`; (Optional)
+-- 3. Query or queries to run
+-- 4. ROLLBACK TO SAVEPOINT `savepoint name`; (Optional)
+-- 5. COMMIT;
+
 ---- Parent Tables ----
 
 -----------------------
@@ -38,14 +50,33 @@ START TRANSACTION;
 INSERT INTO address 
 (street_address, city, state, postal_code, country)
 VALUES 
-    ('123 Pinecrest Dr', 'Boise', 'ID', 83702, 'USA'),
-    ('4567 Maple Ave', 'Idaho Falls', 'ID', 83401, 'USA'),
-    ('890 Riverbend Rd', 'Coeur d'Alene', 'ID', 83804, 'USA'),
-    ('321 Aspen Way', 'Twin Falls', 'ID', 83301, 'USA'),
-    ('6789 Birch Ln', 'Meridian', 'ID', 83642, 'USA');
+    ('123 Pinecrest Dr'
+    , 'Boise'
+    , 'ID'
+    , 83702
+    , 'USA'),
+    ('4567 Maple Ave'
+    , 'Idaho Falls'
+    , 'ID'
+    , 83401
+    , 'USA'),
+    ('890 Riverbend Rd'
+    , 'Coeur d'Alene'
+    , 'ID'
+    , 83804
+    , 'USA'),
+    ('321 Aspen Way'
+    , 'Twin Falls'
+    , 'ID'
+    , 83301
+    , 'USA'),
+    ('6789 Birch Ln'
+    , 'Meridian'
+    , 'ID'
+    , 83642
+    , 'USA');
 
 COMMIT;
-
 -------------------
 ---- discounts ----
 -------------------
@@ -62,13 +93,42 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO users
-  (first_name, last_name, email, password_hash, phone_number, created_at)  -- missing the fk of address_id
+  (first_name, last_name, email, password_hash, phone_number, address_id, created_at)
 VALUES
-  ('James', 'Smith', 'JamesSmith123@gmail.com', 'BlueTiger45!', '(208) 456-7892', '1/20/2025'),
-  ('Terry', 'Johnson', 'TerryJohnson99@yahoo.com', 'SunnyLake99?', '(208) 234-5678', '1/21/2025'),
-  ('Jessica', 'Williams', 'JessicaWilliams456@hotmail.com', 'GreenApple22$', '(208) 987-6543', '1/22/2025'),
-  ('Sophia', 'Brown', 'SophiaBrown22@outlook.com', 'HappyMoon88#', '(208) 765-4321', '1/23/2025'),
-  ('Brian', 'Jones', 'BrianJones789@gmail.com', 'SilverTree12&', '(208) 543-2109', '1/24/2025');
+  ('James'
+  , 'Smith'
+  , 'JamesSmith123@gmail.com'
+  , 'BlueTiger45!'
+  , '(208) 456-7892'
+  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
+  , '1/20/2025'),
+  ('Terry', 'Johnson'
+  , 'TerryJohnson99@yahoo.com'
+  , 'SunnyLake99?'
+  , '(208) 234-5678'
+  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
+  , '1/21/2025'),
+  ('Jessica'
+  , 'Williams'
+  , 'JessicaWilliams456@hotmail.com'
+  , 'GreenApple22$'
+  , '(208) 987-6543'
+  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '890 Riverbend Rd, Coeur d'Alene, ID 83804'))
+  , '1/22/2025'),
+  ('Sophia'
+  , 'Brown'
+  , 'SophiaBrown22@outlook.com'
+  , 'HappyMoon88#'
+  , '(208) 765-4321'
+  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
+  , '1/23/2025'),
+  ('Brian'
+  , 'Jones'
+  , 'BrianJones789@gmail.com'
+  , 'SilverTree12&'
+  , '(208) 543-2109'
+  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
+  , '1/24/2025');
 
 COMMIT;
 
@@ -78,13 +138,33 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO orders
-(total_price, order_status, created_at)
+(user_id, total_price, order_status, created_at, discount_id) 
 VALUES
-  ('140.00', 'pending', '1/20/2025'),
-  ('110.00', 'shipped', '1/21/2025'),
-  ('65.00', 'shipped', '1/22/2025'),
-  ('160.00', 'delivered', '1/23/2025'),
-  ('150.00', 'delivered', '1/24/2025');
+  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
+  , '140.00'
+  , 'pending'
+  , '1/20/2025'
+  , NULL),
+  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Brian Jones'))
+  , '110.00'
+  , 'shipped'
+  , '1/21/2025'
+  , NULL),
+  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Sophia Brown'))
+  , '65.00'
+  , 'shipped'
+  , '1/22/2025'
+  , NULL),
+  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
+  , '160.00'
+  , 'delivered'
+  , '1/23/2025'
+  , NULL),
+  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Terry Johnson'))
+  , '150.00'
+  , 'delivered'
+  , '1/24/2025'
+  , NULL);
 
 COMMIT;
 -----------------
