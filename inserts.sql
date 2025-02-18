@@ -219,7 +219,62 @@ COMMIT;
 -----------------
 ---- returns ----
 -----------------
+START TRANSACTION;
 
+INSERT INTO returns (order_id, return_reason, created_at, processed_at)
+VALUES
+  (
+    (SELECT order_id 
+     FROM orders 
+     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
+       AND total_price = '140.00'
+     LIMIT 1),
+    'Customer reported receiving the wrong size; return initiated.',
+    '2025-01-25 09:15:00',
+    '2025-01-26 10:00:00'
+  ),
+  (
+    (SELECT order_id 
+     FROM orders 
+     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
+       AND total_price = '110.00'
+     LIMIT 1),
+    'Product arrived damaged during shipping.',
+    '2025-01-26 11:20:00',
+    '2025-01-27 14:30:00'
+  ),
+  (
+    (SELECT order_id 
+     FROM orders 
+     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
+       AND total_price = '65.00'
+     LIMIT 1),
+    'Item not as described on the website.',
+    '2025-01-27 08:45:00',
+    '2025-01-28 09:00:00'
+  ),
+  (
+    (SELECT order_id 
+     FROM orders 
+     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
+       AND total_price = '160.00'
+     LIMIT 1),
+    'Customer changed their mind about the purchase.',
+    '2025-01-28 13:00:00',
+    '2025-01-29 15:45:00'
+  ),
+  (
+    (SELECT order_id 
+     FROM orders 
+     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
+       AND total_price = '150.00'
+     LIMIT 1),
+    'Order delivered late, prompting a return request.',
+    '2025-01-29 10:30:00',
+    '2025-01-30 12:00:00'
+  );
+
+COMMIT;
 ------------------
 ---- wishlist ----
 ------------------
