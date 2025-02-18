@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table` (
   `description` MEDIUMTEXT NOT NULL,
   `price` DECIMAL NOT NULL,
   `stock` INT NOT NULL,
-  `created_at` VARCHAR(45) NOT NULL,
+  `created_at` DATE NOT NULL,
   `image` VARCHAR(200) NULL,
   PRIMARY KEY (`product_table_id`))
 ENGINE = InnoDB;
@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `ecommercedb`.`wishlist` ;
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`wishlist` (
   `wishlist_id` INT NOT NULL,
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `added_at` TIMESTAMP(8) NOT NULL,
+  `added_at` DATE NOT NULL,
   PRIMARY KEY (`wishlist_id`),
   INDEX `fk_wishlist_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_wishlist_user`
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`card` (
   `card_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `card_number` INT NOT NULL,
   `card_cvv` INT NOT NULL,
-  `card_date` DATE NOT NULL,
+  `card_date` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`card_id`))
 ENGINE = InnoDB;
 
@@ -116,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`discounts` (
   `discount_code` VARCHAR(15) NOT NULL,
   `discount_type` ENUM('percentage', 'fixed') NOT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
-  `start_date` TEXT NOT NULL,
-  `end_date` TEXT NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
   PRIMARY KEY (`discounts_id`))
 ENGINE = InnoDB;
 
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`payments` (
   `order_id` INT UNSIGNED NOT NULL,
   `card_id` INT UNSIGNED NOT NULL,
   `payment_status` ENUM('pending', 'completed', 'failed') NOT NULL,
-  `payment_date` TIMESTAMP NOT NULL,
+  `payment_date` DATE NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`payments_id`),
   INDEX `payments_card_fk1_idx` (`card_id` ASC) VISIBLE,
@@ -194,8 +194,8 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`returns` (
   `returns_id` INT NOT NULL,
   `order_id` INT UNSIGNED NOT NULL,
   `return_reason` TEXT(300) NOT NULL,
-  `created_at` VARCHAR(45) NOT NULL,
-  `processed_at` VARCHAR(45) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  `processed_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`returns_id`),
   INDEX `returns_fk1_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `returns_fk1`
