@@ -154,27 +154,27 @@ VALUES
   ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
   , '140.00'
   , 'pending'
-  , '1/20/2025'
+  , '2025-01-20'
   , NULL),
   ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Brian Jones'))
   , '110.00'
   , 'shipped'
-  , '1/21/2025'
+  , '2025-01-21'
   , NULL),
   ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Sophia Brown'))
   , '65.00'
   , 'shipped'
-  , '1/22/2025'
+  , '2025-01-22'
   , NULL),
   ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
   , '160.00'
   , 'delivered'
-  , '1/23/2025'
+  , '2025-01-23'
   , NULL),
   ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Terry Johnson'))
   , '150.00'
   , 'delivered'
-  , '1/24/2025'
+  , '2025-01-24'
   , NULL);
 
 COMMIT;
