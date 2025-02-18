@@ -85,11 +85,11 @@ START TRANSACTION;
 INSERT INTO discounts 
 (discount_code, discount_type, amount, start_date, end_date)
 VALUES
-  ('SPRING20', 'percentage', 20.00, '2025-03-01', '2025-03-31'),
-  ('SUMMER10', 'percentage', 10.00, '2025-06-01', '2025-06-30'),
-  ('WELCOME5', 'fixed', 5.00, '2025-01-01', '2025-12-31'),
-  ('BLACKFRIDAY', 'percentage', 50.00, '2025-11-29', '2025-11-29'),
-  ('HOLIDAY25', 'fixed', 25.00, '2025-12-20', '2025-12-31');
+  ('SPRING20', 'percentage', 20.00, '2025/03/01', '2025/03/31'),
+  ('SUMMER10', 'percentage', 10.00, '2025/06/01', '2025/06/30'),
+  ('WELCOME5', 'fixed', 5.00, '2025/01/01', '2025/12/31'),
+  ('BLACKFRIDAY', 'percentage', 50.00, '2025/11/29', '2025/11/29'),
+  ('HOLIDAY25', 'fixed', 25.00, '2025/12/20', '2025/12/31');
 
 COMMIT;
 --------------
