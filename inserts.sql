@@ -21,11 +21,36 @@ INSERT INTO product_table
 (product_name, description, price, stock, created_at, image)
   
 VALUES
-('Space Shoes', 'Tired of Earth’s gravity holding you back? Step into the future with Galactic Stride™ Space Shoes—the only footwear designed to (almost) defy physics.', 140.00, 20, '1/29/2024', 'https://firefly.adobe.com/public/t2i?id=urn%3Aaaid%3Asc%3AUS%3Ab37c08e2-7a64-4fe0-ad91-9607a07a172b&ff_channel=shared_link&ff_source=Text2Image'),
-('Cosmic Loafers', 'Tired of laces? Tired of effort? Tired of planetary constraints? Slip into Cosmic Loafers™, the ultimate footwear for those who believe gravity is optional and dress codes are merely suggestions.', 110.00, 30, '1/30/2024', Null),
-('Pluto Clogs', 'Once considered a planet, now just a celestial afterthought—Pluto understands what it means to be underestimated. That’s why we created Pluto Clogs™, the ultimate shoe for those who don’t care about labels but do care about maximum comfort in the cold, unforgiving void.', 65.00, 50, '1/31/2024', Null),
-('Gravity Boots', 'Ever feel like you’re just floating through life? Wish you had a little more stability—physically, if not emotionally? Introducing Gravity Boots™, the only footwear designed to keep your feet firmly planted, even when everything else is spiraling out of control.', 160.00, 35, '2/1/2024', Null),
-('Supernova Sneakers', 'Tired of blending in like some average, low-energy star? Step up your game with Supernova Sneakers™, the only footwear inspired by the most dramatic exit in the universe. Designed for those who refuse to go out quietly.', 150.00, 55, '2/2/2024', Null);
+('Space Shoes'
+, 'Tired of Earth’s gravity holding you back? Step into the future with Galactic Stride™ Space Shoes—the only footwear designed to (almost) defy physics.'
+, 140.00
+, 20
+, '2024-01-29'
+, 'https://firefly.adobe.com/public/t2i?id=urn%3Aaaid%3Asc%3AUS%3Ab37c08e2-7a64-4fe0-ad91-9607a07a172b&ff_channel=shared_link&ff_source=Text2Image'),
+('Cosmic Loafers'
+, 'Tired of laces? Tired of effort? Tired of planetary constraints? Slip into Cosmic Loafers™, the ultimate footwear for those who believe gravity is optional and dress codes are merely suggestions.'
+, 110.00
+, 30
+, '2024-01-30'
+, Null),
+('Pluto Clogs'
+, 'Once considered a planet, now just a celestial afterthought—Pluto understands what it means to be underestimated. That’s why we created Pluto Clogs™, the ultimate shoe for those who don’t care about labels but do care about maximum comfort in the cold, unforgiving void.'
+, 65.00
+, 50
+, '2024-01-31'
+, Null),
+('Gravity Boots'
+, 'Ever feel like you’re just floating through life? Wish you had a little more stability—physically, if not emotionally? Introducing Gravity Boots™, the only footwear designed to keep your feet firmly planted, even when everything else is spiraling out of control.'
+, 160.00
+, 35
+, '2024-02-01'
+, Null),
+('Supernova Sneakers'
+, 'Tired of blending in like some average, low-energy star? Step up your game with Supernova Sneakers™, the only footwear inspired by the most dramatic exit in the universe. Designed for those who refuse to go out quietly.'
+, 150.00
+, 55
+, '2024-02-02'
+, Null);
 
 COMMIT;
 ------------------------
@@ -95,6 +120,19 @@ COMMIT;
 --------------
 ---- card ----
 --------------
+START TRANSACTION;
+
+INSERT INTO card 
+(card_number, card_cvv, card_date) 
+VALUES
+('4111 1111 1111 1111', 123, '12/26'),
+('5500 0000 0000 0004', 456, '11/24'),
+('3400 0000 0000 009', 789, '06/27'),
+('6011 0000 0000 0012', 321, '03/25'),
+('3000 0000 0000 0004', 654, '09/28');
+
+COMMIT;
+
 
 ---- Child Tables ----
 
@@ -112,34 +150,34 @@ VALUES
   , 'BlueTiger45!'
   , '(208) 456-7892'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '1/20/2025'),
+  , '2025-01-20'),
   ('Terry', 'Johnson'
   , 'TerryJohnson99@yahoo.com'
   , 'SunnyLake99?'
   , '(208) 234-5678'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '1/21/2025'),
+  , '2025-01-21'),
   ('Jessica'
   , 'Williams'
   , 'JessicaWilliams456@hotmail.com'
   , 'GreenApple22$'
   , '(208) 987-6543'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '890 Riverbend Rd, Coeur d'Alene, ID 83804'))
-  , '1/22/2025'),
+  , '2025-01-22'),
   ('Sophia'
   , 'Brown'
   , 'SophiaBrown22@outlook.com'
   , 'HappyMoon88#'
   , '(208) 765-4321'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
-  , '1/23/2025'),
+  , '2025-01-23'),
   ('Brian'
   , 'Jones'
   , 'BrianJones789@gmail.com'
   , 'SilverTree12&'
   , '(208) 543-2109'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
-  , '1/24/2025');
+  , '2025-01-24');
 
 COMMIT;
 
