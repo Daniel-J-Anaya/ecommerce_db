@@ -19,33 +19,32 @@ START TRANSACTION
 
 INSERT INTO product_table
 (product_name, description, price, stock, created_at, image)
-  
 VALUES
 ('Space Shoes'
 , 'Tired of Earth’s gravity holding you back? Step into the future with Galactic Stride™ Space Shoes—the only footwear designed to (almost) defy physics.'
 , 140.00
 , 20
 , '2024-01-29'
-, 'https://firefly.adobe.com/public/t2i?id=urn%3Aaaid%3Asc%3AUS%3Ab37c08e2-7a64-4fe0-ad91-9607a07a172b&ff_channel=shared_link&ff_source=Text2Image'),
-('Cosmic Loafers'
+, 'https://firefly.adobe.com/public/t2i?id=urn%3Aaaid%3Asc%3AUS%3Ab37c08e2-7a64-4fe0-ad91-9607a07a172b&ff_channel=shared_link&ff_source=Text2Image')
+, ('Cosmic Loafers'
 , 'Tired of laces? Tired of effort? Tired of planetary constraints? Slip into Cosmic Loafers™, the ultimate footwear for those who believe gravity is optional and dress codes are merely suggestions.'
 , 110.00
 , 30
 , '2024-01-30'
-, Null),
-('Pluto Clogs'
+, Null)
+, ('Pluto Clogs'
 , 'Once considered a planet, now just a celestial afterthought—Pluto understands what it means to be underestimated. That’s why we created Pluto Clogs™, the ultimate shoe for those who don’t care about labels but do care about maximum comfort in the cold, unforgiving void.'
 , 65.00
 , 50
 , '2024-01-31'
-, Null),
-('Gravity Boots'
+, Null)
+, ('Gravity Boots'
 , 'Ever feel like you’re just floating through life? Wish you had a little more stability—physically, if not emotionally? Introducing Gravity Boots™, the only footwear designed to keep your feet firmly planted, even when everything else is spiraling out of control.'
 , 160.00
 , 35
 , '2024-02-01'
-, Null),
-('Supernova Sneakers'
+, Null)
+, ('Supernova Sneakers'
 , 'Tired of blending in like some average, low-energy star? Step up your game with Supernova Sneakers™, the only footwear inspired by the most dramatic exit in the universe. Designed for those who refuse to go out quietly.'
 , 150.00
 , 55
@@ -60,11 +59,17 @@ START TRANSACTION;
 
 INSERT INTO category_table 
 (name, description)
-VALUES ('Galactic footwear','A collection of space-inspired shoes designed for those who want to walk among the stars. Featuring futuristic styles and cosmic comfort, these shoes are perfect for dreamers and explorers alike.'),
-  ('Astro kicks collection','Elevate your step with the Astro Kicks Collection, where innovation meets interstellar fashion. Designed for both comfort and style, these kicks are ready for any cosmic adventure'),
-  ('Cosmic Stride Series','Step boldly into the future with the Cosmic Stride Series, a lineup of gravity-defying footwear inspired by the mysteries of the universe. Walk with confidence, whether on Earth or beyond.'),
-  ('Interstellar Soles','Experience the next evolution of footwear with Interstellar Soles—a range of celestial designs crafted for comfort, durability, and a style that’s light-years ahead'),
-  ('Nebula Walkers',' Inspired by the beauty of the cosmos, Nebula Walkers bring a touch of the stars to your everyday journey. Sleek, stylish, and infused with futuristic flair, these shoes will take you places—literally and figuratively');
+VALUES ('Galactic footwear'
+  , 'A collection of space-inspired shoes designed for those who want to walk among the stars. Featuring futuristic styles and cosmic comfort, these shoes are perfect for dreamers and explorers alike.')
+  , ('Astro kicks collection'
+  , 'Elevate your step with the Astro Kicks Collection, where innovation meets interstellar fashion. Designed for both comfort and style, these kicks are ready for any cosmic adventure')
+  , ('Cosmic Stride Series'
+  , 'Step boldly into the future with the Cosmic Stride Series, a lineup of gravity-defying footwear inspired by the mysteries of the universe. Walk with confidence, whether on Earth or beyond.')
+  , ('Interstellar Soles'
+  , 'Experience the next evolution of footwear with Interstellar Soles—a range of celestial designs crafted for comfort, durability, and a style that’s light-years ahead')
+  , ('Nebula Walkers'
+  , ' Inspired by the beauty of the cosmos, Nebula Walkers bring a touch of the stars to your everyday journey. Sleek, stylish, and infused with futuristic flair, these shoes will take you places—literally and figuratively'
+  );
 
 COMMIT;
 -----------------
@@ -79,23 +84,23 @@ VALUES
     , 'Boise'
     , 'ID'
     , 83702
-    , 'USA'),
-    ('4567 Maple Ave'
+    , 'USA')
+    , ('4567 Maple Ave'
     , 'Idaho Falls'
     , 'ID'
     , 83401
-    , 'USA'),
-    ('890 Riverbend Rd'
+    , 'USA')
+    , ('890 Riverbend Rd'
     , 'Coeur d'Alene'
     , 'ID'
     , 83804
-    , 'USA'),
-    ('321 Aspen Way'
+    , 'USA')
+    , ('321 Aspen Way'
     , 'Twin Falls'
     , 'ID'
     , 83301
-    , 'USA'),
-    ('6789 Birch Ln'
+    , 'USA')
+    , ('6789 Birch Ln'
     , 'Meridian'
     , 'ID'
     , 83642
@@ -110,11 +115,31 @@ START TRANSACTION;
 INSERT INTO discounts 
 (discount_code, discount_type, amount, start_date, end_date)
 VALUES
-  ('SPRING20', 'percentage', 20.00, '2025-03-01', '2025-03-31'),
-  ('SUMMER10', 'percentage', 10.00, '2025-06-01', '2025-06-30'),
-  ('WELCOME5', 'fixed', 5.00, '2025-01-01', '2025-12-31'),
-  ('BLACKFRIDAY', 'percentage', 50.00, '2025-11-29', '2025-11-29'),
-  ('HOLIDAY25', 'fixed', 25.00, '2025-12-20', '2025-12-31');
+  ('SPRING20'
+  , 'percentage'
+  , 20.00
+  , '2025-03-01'
+  , '2025-03-31')
+  , ('SUMMER10'
+  , 'percentage'
+  , 10.00
+  , '2025-06-01'
+  , '2025-06-30')
+  , ('WELCOME5'
+  , 'fixed'
+  , 5.00
+  , '2025-01-01'
+  , '2025-12-31')
+  , ('BLACKFRIDAY'
+  , 'percentage'
+  , 50.00
+  , '2025-11-29'
+  , '2025-11-29')
+  , ('HOLIDAY25'
+  , 'fixed'
+  , 25.00
+  , '2025-12-20'
+  , '2025-12-31');
 
 COMMIT;
 --------------
@@ -125,11 +150,21 @@ START TRANSACTION;
 INSERT INTO card 
 (card_number, card_cvv, card_date) 
 VALUES
-('4111 1111 1111 1111', 123, '12/26'),
-('5500 0000 0000 0004', 456, '11/24'),
-('3400 0000 0000 009', 789, '06/27'),
-('6011 0000 0000 0012', 321, '03/25'),
-('3000 0000 0000 0004', 654, '09/28');
+  ('4111 1111 1111 1111'
+  , 123
+  , '12/26')
+  , ('5500 0000 0000 0004'
+  , 456
+  , '11/24')
+  , ('3400 0000 0000 009'
+  , 789
+  , '06/27')
+  , ('6011 0000 0000 0012'
+  , 321
+  , '03/25')
+  , ('3000 0000 0000 0004'
+  , 654
+  , '09/28');
 
 COMMIT;
 
@@ -150,28 +185,28 @@ VALUES
   , 'BlueTiger45!'
   , '(208) 456-7892'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '2025-01-20'),
-  ('Terry', 'Johnson'
+  , '2025-01-20')
+  , ('Terry', 'Johnson'
   , 'TerryJohnson99@yahoo.com'
   , 'SunnyLake99?'
   , '(208) 234-5678'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '2025-01-21'),
-  ('Jessica'
+  , '2025-01-21')
+  , ('Jessica'
   , 'Williams'
   , 'JessicaWilliams456@hotmail.com'
   , 'GreenApple22$'
   , '(208) 987-6543'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '890 Riverbend Rd, Coeur d'Alene, ID 83804'))
-  , '2025-01-22'),
-  ('Sophia'
+  , '2025-01-22')
+  , ('Sophia'
   , 'Brown'
   , 'SophiaBrown22@outlook.com'
   , 'HappyMoon88#'
   , '(208) 765-4321'
   , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
-  , '2025-01-23'),
-  ('Brian'
+  , '2025-01-23')
+  , ('Brian'
   , 'Jones'
   , 'BrianJones789@gmail.com'
   , 'SilverTree12&'
@@ -193,23 +228,23 @@ VALUES
   , '140.00'
   , 'pending'
   , '2025-01-20'
-  , NULL),
-  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Brian Jones'))
+  , NULL)
+  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Brian Jones'))
   , '110.00'
   , 'shipped'
   , '2025-01-21'
-  , NULL),
-  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Sophia Brown'))
+  , NULL)
+  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Sophia Brown'))
   , '65.00'
   , 'shipped'
   , '2025-01-22'
-  , NULL),
-  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
+  , NULL)
+  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
   , '160.00'
   , 'delivered'
   , '2025-01-23'
-  , NULL),
-  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Terry Johnson'))
+  , NULL)
+  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Terry Johnson'))
   , '150.00'
   , 'delivered'
   , '2025-01-24'
@@ -228,75 +263,189 @@ VALUES
      FROM orders 
      WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
        AND total_price = '140.00'
-     LIMIT 1),
-    'Customer reported receiving the wrong size; return initiated.',
-    '2025-01-25 09:15:00',
-    '2025-01-26 10:00:00'
+     LIMIT 1)
+    , 'Customer reported receiving the wrong size; return initiated.'
+    , '2025-01-25 09:15:00'
+    , '2025-01-26 10:00:00'
   ),
   (
     (SELECT order_id 
      FROM orders 
      WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
        AND total_price = '110.00'
-     LIMIT 1),
-    'Product arrived damaged during shipping.',
-    '2025-01-26 11:20:00',
-    '2025-01-27 14:30:00'
+     LIMIT 1)
+    , 'Product arrived damaged during shipping.'
+    , '2025-01-26 11:20:00'
+    , '2025-01-27 14:30:00'
   ),
   (
     (SELECT order_id 
      FROM orders 
      WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
        AND total_price = '65.00'
-     LIMIT 1),
-    'Item not as described on the website.',
-    '2025-01-27 08:45:00',
-    '2025-01-28 09:00:00'
+     LIMIT 1)
+    , 'Item not as described on the website.'
+    , '2025-01-27 08:45:00'
+    , '2025-01-28 09:00:00'
   ),
   (
     (SELECT order_id 
      FROM orders 
      WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
        AND total_price = '160.00'
-     LIMIT 1),
-    'Customer changed their mind about the purchase.',
-    '2025-01-28 13:00:00',
-    '2025-01-29 15:45:00'
+     LIMIT 1)
+    , 'Customer changed their mind about the purchase.'
+    , '2025-01-28 13:00:00'
+    , '2025-01-29 15:45:00'
   ),
   (
     (SELECT order_id 
      FROM orders 
      WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
        AND total_price = '150.00'
-     LIMIT 1),
-    'Order delivered late, prompting a return request.',
-    '2025-01-29 10:30:00',
-    '2025-01-30 12:00:00'
+     LIMIT 1)
+    , 'Order delivered late, prompting a return request.'
+    , '2025-01-29 10:30:00'
+    , '2025-01-30 12:00:00'
   );
 
 COMMIT;
 ------------------
 ---- wishlist ----
 ------------------
+START TRANSACTION;
 
+INSERT INTO wishlist 
+(user_id, added_at)
+VALUES 
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
+  , '2025-01-20')
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson'),
+  , '2025-01-21')
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams'),
+  , '2025-01-22')
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
+  , '2025-01-23')
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
+  , '2025-01-24');
+
+COMMIT;
 ------------------
 ---- payments ----
 ------------------
+START TRANSACTION;
+
+INSERT INTO payments 
+(order_id, card_id, payment_status, payment_date, user_id)
+VALUES
+  ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith') AND total_price = 140.00)
+  , (SELECT card_id FROM card WHERE card_number = '4111 1111 1111 1111')
+  , 'completed'
+  , '2025-01-20'
+  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith'))
+  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones') AND total_price = 110.00)
+  , (SELECT card_id FROM card WHERE card_number = '5500 0000 0000 0004')
+  , 'completed'
+  , '2025-01-21'
+  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones'))
+  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown') AND total_price = 65.00)
+  , (SELECT card_id FROM card WHERE card_number = '3400 0000 0000 009')
+  , 'completed'
+  , '2025-01-22'
+  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown'))
+  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson') AND total_price = 150.00)
+  , (SELECT card_id FROM card WHERE card_number = '6011 0000 0000 0012')
+  , 'completed'
+  , '2025-01-23'
+  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson'))
+  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams') AND total_price = 160.00)
+  , (SELECT card_id FROM card WHERE card_number = '3000 0000 0000 0004')
+  , 'completed'
+  , '2025-01-24'
+  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams'));
+
+COMMIT;
 
 ---- Linking Tables ----
 
 --------------------------------
 ---- product_table_wishlist ----
 --------------------------------
+START TRANSACTION;
 
+INSERT INTO product_table_wishlist 
+(product_table_id, wishlist_id)
+VALUES
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Space Shoes')
+  , (SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
+  , (SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
+  , (SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots') 
+  , (SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
+  , (SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams')));
+
+COMMIT;
 --------------------------------------
 ---- product_table_category_table ----
 --------------------------------------
+START TRANSACTION;
 
+INSERT INTO product_table_category_table 
+(product_table_id, category_id)
+VALUES
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Space Shoes') 
+  , (SELECT category_id FROM category_table WHERE name = 'Galactic footwear'))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
+  , (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection'))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
+  , (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series'))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
+  , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles'))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
+  , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
+
+COMMIT;
 ----------------------------------
 ---- product_table_has_orders ----
 ----------------------------------
+START TRANSACTION;
+
+INSERT INTO product_table_has_orders 
+(product_table_id, orders_id)
+VALUES
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Space Shoes')
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'James Smith' AND total_price = 140.00))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Brian Jones' AND total_price = 110.00))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Sophia Brown' AND total_price = 65.00))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00))
+  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Jessica Williams' AND total_price = 160.00));
+
+COMMIT;
 
 --------------------
 ---- users_card ----
 --------------------
+START TRANSACTION;
+
+INSERT INTO users_card 
+(user_id, card_id)
+VALUES
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
+  , (SELECT card_id FROM card WHERE card_number = '4111 1111 1111 1111'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
+  , (SELECT card_id FROM card WHERE card_number = '5500 0000 0000 0004'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
+  , (SELECT card_id FROM card WHERE card_number = '3400 0000 0000 009'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
+  , (SELECT card_id FROM card WHERE card_number = '6011 0000 0000 0012'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams')
+  , (SELECT card_id FROM card WHERE card_number = '3000 0000 0000 0004'));
+
+COMMIT;
