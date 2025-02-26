@@ -38,13 +38,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ecommercedb`.`address` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`address` (
-  `addresses_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `address_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `street_address` VARCHAR(225) NOT NULL,
   `city` VARCHAR(100) NOT NULL,
   `state` VARCHAR(100) NOT NULL,
   `postal_code` VARCHAR(20) NOT NULL,
   `country` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`addresses_id`))
+  PRIMARY KEY (`address_id`))
 ENGINE = InnoDB;
 
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`users` (
   INDEX `users_address_fk1_idx` (`address_id` ASC) VISIBLE,
   CONSTRAINT `users_address_fk1`
     FOREIGN KEY (`address_id`)
-    REFERENCES `ecommercedb`.`address` (`addresses_id`)
+    REFERENCES `ecommercedb`.`address` (`address_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `ecommercedb`.`card` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`card` (
   `card_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `card_number` INT NOT NULL,
+  `card_number` VARCHAR(19) NOT NULL,
   `card_cvv` INT NOT NULL,
   `card_date` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`card_id`))
