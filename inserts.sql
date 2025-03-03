@@ -1,6 +1,6 @@
 SET AUTOCOMMIT=0;
 
-USE ecommerce_db;
+USE ecommercedb;
 
 -- ------------------------------------------------------------------
 -- Each Transaction usually has five parts:
@@ -15,7 +15,7 @@ USE ecommerce_db;
 -----------------------
 ---- product_table ----
 -----------------------
-START TRANSACTION
+START TRANSACTION;
 
 INSERT INTO product_table
 (product_name, description, price, stock, created_at, image)
@@ -91,7 +91,7 @@ VALUES
     , 83401
     , 'USA')
     , ('890 Riverbend Rd'
-    , 'Coeur d'Alene'
+    , 'Coeur d'' Alene'
     , 'ID'
     , 83804
     , 'USA')
@@ -179,40 +179,30 @@ START TRANSACTION;
 INSERT INTO users
   (first_name, last_name, email, password_hash, phone_number, address_id, created_at)
 VALUES
-  ('James'
-  , 'Smith'
-  , 'JamesSmith123@gmail.com'
-  , 'BlueTiger45!'
-  , '(208) 456-7892'
-  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '2025-01-20')
-  , ('Terry', 'Johnson'
-  , 'TerryJohnson99@yahoo.com'
-  , 'SunnyLake99?'
-  , '(208) 234-5678'
-  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '123 Pinecrest Dr, Boise, ID 83702'))
-  , '2025-01-21')
-  , ('Jessica'
-  , 'Williams'
-  , 'JessicaWilliams456@hotmail.com'
-  , 'GreenApple22$'
-  , '(208) 987-6543'
-  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '890 Riverbend Rd, Coeur d'Alene, ID 83804'))
-  , '2025-01-22')
-  , ('Sophia'
-  , 'Brown'
-  , 'SophiaBrown22@outlook.com'
-  , 'HappyMoon88#'
-  , '(208) 765-4321'
-  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
-  , '2025-01-23')
-  , ('Brian'
-  , 'Jones'
-  , 'BrianJones789@gmail.com'
-  , 'SilverTree12&'
-  , '(208) 543-2109'
-  , (SELECT address_id FROM address WHERE (CONCAT(street_address+', '+city+', '+state+' '+postal_code) = '321 Aspen Way, Twin Falls, ID 83301'))
-  , '2025-01-24');
+  ('James', 'Smith', 'JamesSmith123@gmail.com', 'BlueTiger45!', '(208) 456-7892',
+   (SELECT address_id FROM address WHERE street_address = '123 Pinecrest Dr' 
+     AND city = 'Boise' AND state = 'ID' AND postal_code = '83702' LIMIT 1),
+   '2025-01-20'),
+
+  ('Terry', 'Johnson', 'TerryJohnson99@yahoo.com', 'SunnyLake99?', '(208) 234-5678',
+   (SELECT address_id FROM address WHERE street_address = '123 Pinecrest Dr' 
+     AND city = 'Boise' AND state = 'ID' AND postal_code = '83702' LIMIT 1),
+   '2025-01-21'),
+
+  ('Jessica', 'Williams', 'JessicaWilliams456@hotmail.com', 'GreenApple22$', '(208) 987-6543',
+   (SELECT address_id FROM address WHERE street_address = '890 Riverbend Rd' 
+     AND city = 'Coeur d'' Alene' AND state = 'ID' AND postal_code = '83804' LIMIT 1),
+   '2025-01-22'),
+
+  ('Sophia', 'Brown', 'SophiaBrown22@outlook.com', 'HappyMoon88#', '(208) 765-4321',
+   (SELECT address_id FROM address WHERE street_address = '321 Aspen Way' 
+     AND city = 'Twin Falls' AND state = 'ID' AND postal_code = '83301' LIMIT 1),
+   '2025-01-23'),
+
+  ('Brian', 'Jones', 'BrianJones789@gmail.com', 'SilverTree12&', '(208) 543-2109',
+   (SELECT address_id FROM address WHERE street_address = '321 Aspen Way' 
+     AND city = 'Twin Falls' AND state = 'ID' AND postal_code = '83301' LIMIT 1),
+   '2025-01-24');
 
 COMMIT;
 
@@ -224,31 +214,20 @@ START TRANSACTION;
 INSERT INTO orders
 (user_id, total_price, order_status, created_at, discount_id) 
 VALUES
-  ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
-  , '140.00'
-  , 'pending'
-  , '2025-01-20'
-  , NULL)
-  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Brian Jones'))
-  , '110.00'
-  , 'shipped'
-  , '2025-01-21'
-  , NULL)
-  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Sophia Brown'))
-  , '65.00'
-  , 'shipped'
-  , '2025-01-22'
-  , NULL)
-  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'James Smith'))
-  , '160.00'
-  , 'delivered'
-  , '2025-01-23'
-  , NULL)
-  , ((SELECT user_id FROM users WHERE (CONCAT(firest_name + ' ' + last_name) = 'Terry Johnson'))
-  , '150.00'
-  , 'delivered'
-  , '2025-01-24'
-  , NULL);
+  ((SELECT user_id FROM users WHERE first_name = 'James' AND last_name = 'Smith' LIMIT 1),
+   140.00, 'pending', '2025-01-20', NULL),
+  
+  ((SELECT user_id FROM users WHERE first_name = 'Brian' AND last_name = 'Jones' LIMIT 1),
+   110.00, 'shipped', '2025-01-21', NULL),
+
+  ((SELECT user_id FROM users WHERE first_name = 'Sophia' AND last_name = 'Brown' LIMIT 1),
+   65.00, 'shipped', '2025-01-22', NULL),
+
+  ((SELECT user_id FROM users WHERE first_name = 'James' AND last_name = 'Smith' LIMIT 1),
+   160.00, 'delivered', '2025-01-23', NULL),
+
+  ((SELECT user_id FROM users WHERE first_name = 'Terry' AND last_name = 'Johnson' LIMIT 1),
+   150.00, 'delivered', '2025-01-24', NULL);
 
 COMMIT;
 -----------------
@@ -259,54 +238,39 @@ START TRANSACTION;
 INSERT INTO returns (order_id, return_reason, created_at, processed_at)
 VALUES
   (
-    (SELECT order_id 
-     FROM orders 
-     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
-       AND total_price = '140.00'
-     LIMIT 1)
-    , 'Customer reported receiving the wrong size; return initiated.'
-    , '2025-01-25 09:15:00'
-    , '2025-01-26 10:00:00'
+    (SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE first_name = 'James' AND last_name = 'Smith') 
+     AND total_price = 140.00 LIMIT 1),
+    'Customer reported receiving the wrong size; return initiated.',
+    '2025-01-25 09:15:00',
+    '2025-01-26 10:00:00'
   ),
   (
-    (SELECT order_id 
-     FROM orders 
-     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
-       AND total_price = '110.00'
-     LIMIT 1)
-    , 'Product arrived damaged during shipping.'
-    , '2025-01-26 11:20:00'
-    , '2025-01-27 14:30:00'
+    (SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE first_name = 'Brian' AND last_name = 'Jones') 
+     AND total_price = 110.00 LIMIT 1),
+    'Product arrived damaged during shipping.',
+    '2025-01-26 11:20:00',
+    '2025-01-27 14:30:00'
   ),
   (
-    (SELECT order_id 
-     FROM orders 
-     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
-       AND total_price = '65.00'
-     LIMIT 1)
-    , 'Item not as described on the website.'
-    , '2025-01-27 08:45:00'
-    , '2025-01-28 09:00:00'
+    (SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE first_name = 'Sophia' AND last_name = 'Brown') 
+     AND total_price = 65.00 LIMIT 1),
+    'Item not as described on the website.',
+    '2025-01-27 08:45:00',
+    '2025-01-28 09:00:00'
   ),
   (
-    (SELECT order_id 
-     FROM orders 
-     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
-       AND total_price = '160.00'
-     LIMIT 1)
-    , 'Customer changed their mind about the purchase.'
-    , '2025-01-28 13:00:00'
-    , '2025-01-29 15:45:00'
+    (SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE first_name = 'James' AND last_name = 'Smith') 
+     AND total_price = 160.00 LIMIT 1),
+    'Customer changed their mind about the purchase.',
+    '2025-01-28 13:00:00',
+    '2025-01-29 15:45:00'
   ),
   (
-    (SELECT order_id 
-     FROM orders 
-     WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
-       AND total_price = '150.00'
-     LIMIT 1)
-    , 'Order delivered late, prompting a return request.'
-    , '2025-01-29 10:30:00'
-    , '2025-01-30 12:00:00'
+    (SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE first_name = 'Terry' AND last_name = 'Johnson') 
+     AND total_price = 150.00 LIMIT 1),
+    'Order delivered late, prompting a return request.',
+    '2025-01-29 10:30:00',
+    '2025-01-30 12:00:00'
   );
 
 COMMIT;
@@ -320,9 +284,9 @@ INSERT INTO wishlist
 VALUES 
   ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
   , '2025-01-20')
-  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson'),
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
   , '2025-01-21')
-  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams'),
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams')
   , '2025-01-22')
   , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
   , '2025-01-23')
@@ -358,7 +322,7 @@ VALUES
   , 'completed'
   , '2025-01-23'
   , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson'))
-  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams') AND total_price = 160.00)
+  , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson') AND total_price = 150.00)
   , (SELECT card_id FROM card WHERE card_number = '3000 0000 0000 0004')
   , 'completed'
   , '2025-01-24'
@@ -425,7 +389,7 @@ VALUES
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
   , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00))
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Jessica Williams' AND total_price = 160.00));
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00));
 
 COMMIT;
 

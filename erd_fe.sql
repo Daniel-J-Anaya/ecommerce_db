@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ecommercedb`.`address` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`address` (
-  `address_id` INT UNSIGNED NOT NULL,
+  `address_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `street_address` VARCHAR(225) NOT NULL,
   `city` VARCHAR(100) NOT NULL,
   `state` VARCHAR(100) NOT NULL,
@@ -79,8 +79,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ecommercedb`.`wishlist` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`wishlist` (
-  `wishlist_id` INT NOT NULL,
-  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `wishlist_id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
   `added_at` DATE NOT NULL,
   PRIMARY KEY (`wishlist_id`),
   INDEX `fk_wishlist_user_idx` (`user_id` ASC) VISIBLE,
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `ecommercedb`.`card` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`card` (
   `card_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `card_number` VARCHAR(17) NOT NULL,
+  `card_number` VARCHAR(19) NOT NULL,
   `card_cvv` INT NOT NULL,
   `card_date` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`card_id`))
@@ -191,7 +191,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ecommercedb`.`returns` ;
 
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`returns` (
-  `returns_id` INT NOT NULL,
+  `returns_id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT UNSIGNED NOT NULL,
   `return_reason` TEXT(300) NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
