@@ -1,8 +1,19 @@
 This is a Class Project Database for en E-Commerce Website.
-SELECT CONCAT(first_name,'',last_name) AS  customer_name, a.street_address,a.city,a.state,a.postal_code,a.country
-FROM users u
-JOIN address a
-ON u.address_id = a.address_id;
+
+SELECT 
+  payments_id,
+  order_id,
+  card_id,
+  payment_status,
+  payment_date,
+  user_id,
+  CASE 
+    WHEN payment_status = 'pending' THEN 'Payment is being processed'
+    WHEN payment_status = 'completed' THEN 'Payment completed successfully'
+    WHEN payment_status = 'failed' THEN 'Payment failed, please retry'
+    ELSE 'Unknown payment status'
+  END AS payment_status_label
+FROM ecommercedb.payments;
 
 Team Members:
 Danny Anaya
