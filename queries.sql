@@ -6,8 +6,22 @@
 -- ---------------------
 -- Query Statment
 
--- -----------------------------------------
+-- ---------------------
+-- Jacob Oliver W09 Query
+------------------------
+SELECT 
+    product_name,
+    stock,
+    CASE 
+        WHEN stock = 0 THEN 'Out of Stock'
+        WHEN stock <= 5 THEN 'Low Stock'
+        WHEN stock <= 20 THEN 'Moderate Stock'
+        ELSE 'In Stock'
+    END AS stock_status
+FROM product_table;
 
+-- categorize stock levels in an eCommerce database
+-- -----------------------------------------
 
 
 -- --------------------------
