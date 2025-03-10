@@ -52,3 +52,34 @@ INNER JOIN users u
 GROUP BY o.user_id, u.first_name, u.last_name;
 
 -- This query returns each user and their respective activity in relation to orders
+
+-- -------------------------------------------------
+
+-- -------------------------
+-- Danny Anaya Week 09 Query
+-- -------------------------
+
+USE ecommercedb;
+
+SELECT 
+    o.orders_id AS 'Order ID',
+    CONCAT(u.first_name, ' ', u.last_name) AS 'Customer Name',
+    CONCAT('$', o.total_price) AS 'Total Price',
+    o.created_at AS 'Order Date',
+    -- Using CASE to display more user-friendly order statuses
+    CASE 
+        WHEN o.order_status = 'pending' THEN 'Awaiting Processing'
+        WHEN o.order_status = 'shipped' THEN 'On the Way'
+        WHEN o.order_status = 'delivered' THEN 'Completed'
+        ELSE 'Unknown Status'
+    END AS 'Order Status'
+FROM orders o
+JOIN users u ON o.user_id = u.user_id
+WHERE o.total_price < 150;
+ORDER BY o.total_price DESC;
+
+-- This query retreives a list of orders, orders them be price and display four columns: Order ID, Customer Name, Total Price, and Order Date.
+-- It checks the Order Status then gives custom messages depencing on the status
+-- It checks if the total price is less than $150
+
+-- ----------------------------------------------
