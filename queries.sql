@@ -83,3 +83,24 @@ ORDER BY o.total_price DESC;
 -- It checks if the total price is less than $150
 
 -- ----------------------------------------------
+
+-- --------------------
+-- Efrain Mailler Week9
+-- --------------------
+
+SELECT 
+  payments_id,
+  order_id,
+  card_id,
+  payment_status,
+  payment_date,
+  user_id,
+  CASE 
+    WHEN payment_status = 'pending' THEN 'Payment is being processed'
+    WHEN payment_status = 'completed' THEN 'Payment completed successfully'
+    WHEN payment_status = 'failed' THEN 'Payment failed, please retry'
+    ELSE 'Unknown payment status'
+  END AS payment_status_label
+FROM ecommercedb.payments;
+
+-- -------------------
