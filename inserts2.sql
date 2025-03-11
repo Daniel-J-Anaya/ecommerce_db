@@ -43,3 +43,49 @@ START TRANSACTION;
 ('David', 'Wilson', 'davidwilson@gmail.com', 'P3q4R5s6T7', '+2123456789', '10', '2025-03-10');
 
 COMMIT;
+
+-- ----------------------------------------------------------------
+
+-- --------------------------------
+-- Danny Anaya: 10 Additional Cards
+-- --------------------------------
+START TRANSACTION;
+
+INSERT INTO card 
+(card_number, card_cvv, card_date) 
+VALUES
+  ('1234 5678 9012 3456', 111, '01/27'), 
+  ('2345 6789 0123 4567', 222, '02/28'), 
+  ('3456 7890 1234 5678', 333, '03/29'), 
+  ('4567 8901 2345 6789', 444, '04/30'), 
+  ('5678 9012 3456 7890', 555, '05/26'), 
+  ('6789 0123 4567 8901', 666, '06/25'), 
+  ('7890 1234 5678 9012', 777, '07/27'), 
+  ('8901 2345 6789 0123', 888, '08/24'), 
+  ('9012 3456 7890 1234', 999, '09/28'), 
+  ('0123 4567 8901 2345', 000, '10/30');
+
+COMMIT;
+
+-- -----------------------------------------------------------------
+
+-- -------------------------------------------------------
+-- Danny Anaya: Linking Users to Card, Updating users_card
+-- -------------------------------------------------------
+START TRANSACTION;
+
+INSERT INTO users_card 
+(user_id, card_id)
+VALUES
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')
+  , (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')
+  , (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')
+  , (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')
+  , (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789'))
+  , ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')
+  , (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'));
+
+COMMIT;
