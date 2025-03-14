@@ -89,3 +89,40 @@ VALUES
   , (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'));
 
 COMMIT;
+
+-- -----------------------------------------------------------------
+
+-- -------------------------------------------------------
+-- Jacob Oliver: Additional Orders
+-- -------------------------------------------------------
+START TRANSACTION;
+
+INSERT INTO orders (user_id, order_date, total_amount, status, shipping_address_id, card_id) 
+VALUES
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'),
+   '2025-03-11', 149.99, 'Shipped',
+   (SELECT address_id FROM address WHERE street_address = '123 Maple Street'),
+   (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456')),
+
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'),
+   '2025-03-12', 89.50, 'Processing',
+   (SELECT address_id FROM address WHERE street_address = '456 Oak Avenue'),
+   (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567')),
+
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson'),
+   '2025-03-13', 249.75, 'Delivered',
+   (SELECT address_id FROM address WHERE street_address = '789 Pine Road'),
+   (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678')),
+
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis'),
+   '2025-03-14', 39.99, 'Shipped',
+   (SELECT address_id FROM address WHERE street_address = '101 Birch Lane'),
+   (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789')),
+
+  ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson'),
+   '2025-03-15', 99.99, 'Processing',
+   (SELECT address_id FROM address WHERE street_address = '202 Cedar Boulevard'),
+   (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'));
+
+COMMIT;
+
