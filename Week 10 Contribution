@@ -1,0 +1,11 @@
+
+---- Garrett Week 10 Contribution----
+
+SELECT   u.first_name
+,        u.last_name
+,        a.street_address
+,        a.city
+FROM     users u
+INNER JOIN address a
+ON       u.address_id = a.address_id
+WHERE    a.state = 'Texas';
