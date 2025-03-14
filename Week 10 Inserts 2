@@ -1,0 +1,16 @@
+INSERT INTO address (street_address, city, state, postal_code, country)
+VALUES 
+    ('321 Elm Street', 'Austin', 'Texas', '73301', 'United States'),
+    ('654 Walnut Avenue', 'Denver', 'Colorado', '80201', 'United States'),
+    ('987 Spruce Road', 'Seattle', 'Washington', '98101', 'United States'),
+    ('201 Redwood Lane', 'Atlanta', 'Georgia', '30301', 'United States'),
+    ('303 Aspen Boulevard', 'Boston', 'Massachusetts', '02101', 'United States');
+SELECT * FROM address;
+
+INSERT INTO users (first_name, last_name, email, password_hash, phone_number, address_id, created_at)
+VALUES 
+    ('Liam', 'Anderson', 'liamanderson@gmail.com', 'Z9y8X7w6V5', '+2134567890', '6', '2025-03-10'),
+    ('Sophia', 'Martinez', 'sophiamartinez@gmail.com', 'T6u5V4w3X2', '+2145678901', '7', '2025-03-10'),
+    ('Noah', 'Brown', 'noahbrown@gmail.com', 'J5K4L3M2N1', '+2156789012', '8', '2025-03-10'),
+    ('Ava', 'Hernandez', 'avahernandez@gmail.com', 'P8Q7R6S5T4', '+2167890123', '9', '2025-03-10'),
+    ('William', 'Garcia', 'williamgarcia@gmail.com', 'U2V3W4X5Y6', '+2178901234', '10', '2025-03-10');
