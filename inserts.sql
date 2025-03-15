@@ -378,37 +378,6 @@ VALUES
   , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
 
   ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
-  , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers')),
-
-  -- Adding New Periodic Table-Inspired Footwear
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Helium Heels')
-  , (SELECT category_id FROM category_table WHERE name = 'Galactic Footwear')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Carbon Kicks')
-  , (SELECT category_id FROM category_table WHERE name = 'Astro Kicks Collection')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Neon Runners')
-  , (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Mercury Slides')
-  , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Titanium Trainers')
-  , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Oxygen Oxfords')
-  , (SELECT category_id FROM category_table WHERE name = 'Galactic Footwear')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Radium Runners')
-  , (SELECT category_id FROM category_table WHERE name = 'Astro Kicks Collection')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Cobalt Cleats')
-  , (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Krypton Kicks')
-  , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
-
-  ((SELECT product_table_id FROM product_table WHERE product_name = 'Gold Gravity Boots')
   , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
 
 COMMIT;
