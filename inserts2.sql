@@ -156,3 +156,127 @@ VALUES
 , 35
 , '2026-03-02'
 , Null);
+
+COMMIT;
+
+-- ---------------------------------------------------------------
+-- -----------------------------------
+-- Andrew Jones: Orders
+-- -----------------------------------
+   
+START TRANSACTION;
+
+INSERT INTO orders 
+(user_id, created_at, total_price, order_status, discount_id)
+VALUES
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'), '2025-03-10', 130.00, 'pending', Null),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'), '2025-03-10', 115.00, 'pending', Null),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson'), '2025-03-10', 80.00, 'pending', Null),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis'), '2025-03-10', 50.00, 'pending', Null),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson'), '2025-03-10', 135.00, 'pending', Null);
+
+COMMIT;
+
+-- -----------------------------------
+-- Andrew Jones: payments
+-- -----------------------------------
+
+START TRANSACTION;
+
+INSERT INTO payments 
+(order_id, card_id, user_id, payment_date, payment_status)
+VALUES
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
+     (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'),
+    '2025-03-10', 'completed'),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
+     (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'),
+    '2025-03-10', 'completed'),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
+     (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson'), 
+    '2025-03-10', 'completed'),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
+     (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis'), 
+    '2025-03-10', 'completed'),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
+     (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson'), 
+    '2025-03-10', 'completed');
+
+COMMIT;
+
+-- -----------------------------------
+-- Andrew Jones: product_table_has_orders
+-- -----------------------------------
+    
+START TRANSACTION;
+
+INSERT INTO product_table_has_orders 
+(order_id, product_id, quantity)
+VALUES
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     -- We need to add a quantity column so we know if more than one item was purchased
+     (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 1),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 1),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 1),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 1),
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 1);
+
+COMMIT;
+
+-- -----------------------------------
+-- Andrew Jones: product_table_category_table
+-- -----------------------------------
+
+START TRANSACTION;
+
+INSERT INTO product_table_category_table 
+(product_table_id, category_id)
+VALUES
+    ((SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 1),  -- need to write subqueries
+    ((SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 1),  
+    ((SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 2), 
+    ((SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 1),  
+    ((SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 2);  
+
+COMMIT;
+
+-- -----------------------------------
+-- Andrew Jones: wishlist
+-- -----------------------------------
+
+START TRANSACTION;
+
+INSERT INTO wishlist 
+(user_id, added_at)
+VALUES
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'), '2025-03-10'),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'), '2025-03-10'),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson'), '2025-03-10'),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis'), '2025-03-10'),
+    ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson'), '2025-03-10');
+
+COMMIT;
+
+-- -----------------------------------
+-- Andrew Jones: product_table_wishlist
+-- -----------------------------------
+
+START TRANSACTION;
+
+INSERT INTO product_table_wishlist (wishlist_id, product_table_id)
+VALUES
+    ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels')),
+    ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks')),
+    ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Neon Runners')),
+    ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides')),
+    ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
+     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'));
+
+COMMIT;
