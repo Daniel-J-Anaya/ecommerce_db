@@ -184,23 +184,18 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(order_id, card_id, user_id, payment_date, payment_status)           -- if we remove the user_id we can link it through the order_id table. need to change the schema creation file
+(order_id, card_id, payment_date, payment_status)           -- if we remove the user_id we can link it through the order_id table. need to change the schema creation file
 VALUES
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
-     (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'),
-    '2025-03-10', 'completed'),
+     (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), '2025-03-10', 'completed'),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
-     (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'),
-    '2025-03-10', 'completed'),
+     (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567'), '2025-03-10', 'completed'),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
-     (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson'), 
-    '2025-03-10', 'completed'),
+     (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678'), '2025-03-10', 'completed'),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
-     (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis'), 
-    '2025-03-10', 'completed'),
+     (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789'), '2025-03-10', 'completed'),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
-     (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson'), 
-    '2025-03-10', 'completed');
+     (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'), '2025-03-10', 'completed');
 
 COMMIT;
 
