@@ -409,7 +409,7 @@ VALUES
   , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
 
   ((SELECT product_table_id FROM product_table WHERE product_name = 'Gold Gravity Boots')
-  , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers')));
+  , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
 
 COMMIT;
 ----------------------------------
