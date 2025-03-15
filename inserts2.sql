@@ -89,3 +89,70 @@ VALUES
   , (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'));
 
 COMMIT;
+
+
+START TRANSACTION;
+
+INSERT INTO product_table
+(product_name, description, price, stock, created_at, image)
+VALUES
+('Helium Heels'
+, 'Feel like you’re walking on air with Helium Heels™, the lightest heels in the universe! Designed with ultra-lightweight materials and a bounce that makes every step feel effortless. Perfect for those who dream of floating through life—literally.'
+, 130.00
+, 25
+, '2025-01-28'
+, Null)
+, ('Carbon Kicks'
+, 'Simple, versatile, and indestructible—just like the most fundamental element of life! Carbon Kicks™ feature a high-strength graphene sole and a minimalist design, making them stronger than steel yet lighter than a feather. The perfect everyday sneaker for those who demand durability and style.'
+, 115.00
+, 50
+, '2025-01-30'
+, Null)
+, ('Neon Runners'
+, 'Stand out like a glowing noble gas with Neon Runners™! These high-energy sneakers come with built-in LED strips that illuminate your every step, ensuring you shine even in the darkest voids of space.'
+, 80.00
+, 55
+, '2024-01-31'
+, Null)
+, ('Mercury Slides'
+, 'Sleek, fluid, and always in motion—Mercury Slides™ adapt to your foot like liquid metal. Designed with temperature-responsive cushioning, these futuristic slip-ons provide ultimate comfort that molds to your foot’s heat and movement.'
+, 50.00
+, 100
+, '2025-02-01'
+, Null)
+, ('Titanium Trainers'
+, 'Built for those who never quit, Titanium Trainers™ are reinforced with titanium-infused fibers, making them shockproof, ultra-durable, and impact-resistant. Whether you’re on Earth or sprinting across Mars, these kicks will keep up.'
+, 135.00
+, 60
+, '2025-02-02'
+, Null)
+, ('Oxygen Oxfords'
+, 'Breathe easy with Oxygen Oxfords™, the world’s first self-ventilating dress shoes. Designed with nano-perforations that filter air and keep your feet fresher than an atmospheric breeze, these shoes redefine breathable footwear.'
+, 160.00
+, 60
+, '2025-02-02'
+, Null)
+, ('Radium Runners'
+, 'Inspired by Marie Curie’s legacy, these glow-in-the-dark Radium Runners™ absorb and store light during the day, then emit a soft, eerie glow at night. Designed for night owls, space travelers, and those who dare to shine in the dark.'
+, 80.00
+, 40
+, '2025-02-02'
+, Null)
+, ('Cobalt Cleats'
+, 'Power and precision meet in Cobalt Cleats™, featuring an atomic-grade grip designed for speed, traction, and control. Whether you’re tearing up the soccer field or running on alien terrain, these cleats give you an unfair advantage.'
+, 150
+, 35
+, '2025-02-02'
+, Null)
+, ('Krypton Kicks'
+, 'Faster than a speeding bullet? Almost. Krypton Kicks™ use cutting-edge shock-absorbing plasma gel to give you an explosive burst of speed with every step. Designed for athletes, intergalactic messengers, and those with heroic ambitions.'
+, 130
+, 35
+, '2026-03-02'
+, Null)
+, ('Gold Gravity Boots'
+, 'Because walking is too mainstream—introducing Gold Gravity Boots™, featuring electromagnetic soles that let you stick to any metallic surface! Perfect for astronauts, rooftop explorers, and anyone who’s tired of gravity dictating their path.'
+, 130
+, 35
+, '2026-03-02'
+, Null);
