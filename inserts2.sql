@@ -167,7 +167,7 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO orders 
-(user_id, created_at, total_price, order_status, discount_id)
+(user_id, created_at, total_price, order_status, discount_id)                  -- Need to add more orders, and include discounts so that we can perform more advance queries using the dicounts table
 VALUES
     ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'), '2025-03-10', 130.00, 'pending', Null),
     ((SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith'), '2025-03-10', 115.00, 'pending', Null),
@@ -184,7 +184,7 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(order_id, card_id, user_id, payment_date, payment_status)
+(order_id, card_id, user_id, payment_date, payment_status)           -- if we remove the user_id we can link it through the order_id table. need to change the schema creation file
 VALUES
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
      (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe'),
@@ -204,44 +204,70 @@ VALUES
 
 COMMIT;
 
--- -----------------------------------
+-- ---------------------------------------
 -- Andrew Jones: product_table_has_orders
--- -----------------------------------
+-- ---------------------------------------
     
 START TRANSACTION;
 
 INSERT INTO product_table_has_orders 
-(order_id, product_id, quantity)
+(order_id, product_id, quantity)                        -- We need to add a quantity column so we know if more than one item was purchased
 VALUES
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     -- We need to add a quantity column so we know if more than one item was purchased
+    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     
      (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 1),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 1),
+     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 2),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
      (SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 1),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 1),
+     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 3),
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 1);
+     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 2);
 
 COMMIT;
 
--- -----------------------------------
+-- -------------------------------------------
 -- Andrew Jones: product_table_category_table
--- -----------------------------------
+-- -------------------------------------------
 
 START TRANSACTION;
 
+-- Link products to categories
 INSERT INTO product_table_category_table 
-(product_table_id, category_id)
+    (product_table_id, category_id)
 VALUES
-    ((SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 1),  -- need to write subqueries
-    ((SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 1),  
-    ((SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 2), 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 1),  
-    ((SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 2);  
+    ((SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 
+     (SELECT category_id FROM category_table WHERE name = 'Galactic footwear')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 
+     (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 
+     (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 
+     (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 
+     (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Oxygen Oxfords'), 
+     (SELECT category_id FROM category_table WHERE name = 'Galactic footwear')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Radium Runners'), 
+     (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Cobalt Cleats'), 
+     (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Krypton Kicks'), 
+     (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
+
+    ((SELECT product_id FROM product_table WHERE product_name = 'Gold Gravity Boots'), 
+     (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
 
 COMMIT;
+
 
 -- -----------------------------------
 -- Andrew Jones: wishlist
@@ -266,7 +292,7 @@ COMMIT;
 
 START TRANSACTION;
 
-INSERT INTO product_table_wishlist (wishlist_id, product_table_id)
+INSERT INTO product_table_wishlist (wishlist_id, product_table_id)                   -- Need to add to the subqueries so that they also select a specific added_at column so that each user can have more than one wishlist
 VALUES
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
      (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels')),
