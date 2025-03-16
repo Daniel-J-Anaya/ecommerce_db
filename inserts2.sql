@@ -184,7 +184,7 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(order_id, card_id, payment_date, payment_status)           -- if we remove the user_id we can link it through the order_id table. need to change the schema creation file
+(order_id, card_id, payment_date, payment_status)               -- The subqueries for order_id aren't working
 VALUES
     ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
      (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), '2025-03-10', 'completed'),
