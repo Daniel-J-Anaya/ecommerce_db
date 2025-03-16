@@ -118,3 +118,21 @@ SELECT
 FROM ecommercedb.payments;
 
 -- -------------------
+-- Ian Miller Week 10
+-- -------------------
+
+-- The purpose of this query is to eventually return those members with higher statuses and their orders
+
+SELECT 
+    CASE 
+        WHEN COUNT(u.user_id) >= 5 THEN 'Platinum'
+        WHEN COUNT(u.user_id) BETWEEN 2 AND 4 THEN 'Gold'
+        ELSE 'No Status'
+    END AS Status,
+    u.first_name AS 'First Name',
+    u.last_name AS 'Last Name',
+    SUM(o.orders_id) AS 'total orders'
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id  
+GROUP BY u.first_name, u.last_name
+LIMIT 10;
