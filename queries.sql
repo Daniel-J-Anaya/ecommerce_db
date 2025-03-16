@@ -136,3 +136,37 @@ FROM users u
 LEFT JOIN orders o ON u.user_id = o.user_id  
 GROUP BY u.first_name, u.last_name
 LIMIT 10;
+
+-- -------------------------
+-- Danny Anaya Week 10 Query
+-- -------------------------
+
+START TRANSACTION;
+
+SELECT 
+    u.first_name AS 'First Name',
+    u.last_name AS 'Last Name',
+    o.orders_id AS 'Order Number',
+    o.total_price AS 'Order Total',
+    o.order_status AS 'Order Status',
+    p.payment_date AS 'Payment Date',
+    CASE
+        WHEN p.payment_status = 'completed' THEN 'Payment Successful'
+        WHEN p.payment_status = 'pending' THEN 'Payment Pending'
+        WHEN p.payment_status = 'failed' THEN 'Payment Failed'
+        ELSE 'No Payment Info'
+    END AS 'Payment Status'
+FROM 
+    ecommercedb.users u
+LEFT JOIN 
+    ecommercedb.orders o ON u.user_id = o.user_id
+LEFT JOIN 
+    ecommercedb.payments p ON o.orders_id = p.order_id
+GROUP BY 
+    u.user_id, o.orders_id, p.payment_status
+ORDER BY 
+    o.total_price DESC
+LIMIT 10;
+
+COMMIT;
+
