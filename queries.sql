@@ -170,3 +170,21 @@ LIMIT 10;
 
 COMMIT;
 
+
+-- -------------------------
+-- Efrain Miller Week 10 Query
+-- -------------------------
+
+SELECT u.first_name,u.last_name,u.email,o.orders_id,o.total_price AS order_total,
+pt.product_name,d.discount_code,d.discount_type,d.amount AS discount_amount,p.payment_status
+FROM ecommercedb.users u
+LEFT JOIN ecommercedb.orders o 
+ON u.user_id = o.user_id
+LEFT JOIN ecommercedb.product_table_has_orders pto 
+ON o.orders_id = pto.orders_id
+LEFT JOIN ecommercedb.product_table pt 
+ON pto.product_table_id = pt.product_table_id
+LEFT JOIN ecommercedb.discounts d 
+ON o.discount_id = d.discounts_id
+LEFT JOIN ecommercedb.payments p 
+ON o.orders_id = p.order_id;
