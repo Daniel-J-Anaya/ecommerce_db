@@ -162,22 +162,22 @@ CREATE TABLE IF NOT EXISTS `ecommercedb`.`payments` (
   `card_id` INT UNSIGNED NOT NULL,
   `payment_status` ENUM('pending', 'completed', 'failed') NOT NULL,
   `payment_date` DATE NOT NULL,
-  `user_id` INT UNSIGNED NOT NULL,
+  -- `user_id` INT UNSIGNED NOT NULL,                             -- commented out the user_id
   PRIMARY KEY (`payments_id`),
   INDEX `payments_card_fk1_idx` (`card_id` ASC) VISIBLE,
-  INDEX `payments_users_fk2_idx` (`user_id` ASC) VISIBLE,
+  -- INDEX `payments_users_fk2_idx` (`user_id` ASC) VISIBLE,      -- commented out the user_id
   INDEX `payments_orders_fk3_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `payments_card_fk1`
     FOREIGN KEY (`card_id`)
     REFERENCES `ecommercedb`.`card` (`card_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `payments_users_fk2`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `ecommercedb`.`users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `payments_orders_fk3`
+  -- CONSTRAINT `payments_users_fk2`
+  --  FOREIGN KEY (`user_id`)
+  --  REFERENCES `ecommercedb`.`users` (`user_id`)                 -- commented out the user_id
+  --  ON DELETE NO ACTION
+  --  ON UPDATE NO ACTION,
+  CONSTRAINT `payments_orders_fk2`
     FOREIGN KEY (`order_id`)
     REFERENCES `ecommercedb`.`orders` (`orders_id`)
     ON DELETE NO ACTION
@@ -252,6 +252,7 @@ DROP TABLE IF EXISTS `ecommercedb`.`product_table_has_orders` ;
 CREATE TABLE IF NOT EXISTS `ecommercedb`.`product_table_has_orders` (
   `product_table_id` INT NOT NULL,
   `orders_id` INT UNSIGNED NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL,                                                          -- Added quantity column so that we can see how many were bought
   PRIMARY KEY (`product_table_id`, `orders_id`),
   INDEX `fk_product_table_has_orders_orders1_idx` (`orders_id` ASC) VISIBLE,
   INDEX `fk_product_table_has_orders_product_table1_idx` (`product_table_id` ASC) VISIBLE,

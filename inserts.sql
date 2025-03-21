@@ -300,33 +300,38 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(order_id, card_id, payment_status, payment_date, user_id)
+(order_id, card_id, payment_status, payment_date)        -- , user_id (Took the user_id inserts out)
 VALUES
   ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith') AND total_price = 140.00)
   , (SELECT card_id FROM card WHERE card_number = '4111 1111 1111 1111')
   , 'completed'
   , '2025-01-20'
-  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith'))
+  -- , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'James Smith')
+  )
   , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones') AND total_price = 110.00)
   , (SELECT card_id FROM card WHERE card_number = '5500 0000 0000 0004')
   , 'completed'
   , '2025-01-21'
-  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones'))
+  -- , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Brian Jones')
+  )
   , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown') AND total_price = 65.00)
   , (SELECT card_id FROM card WHERE card_number = '3400 0000 0000 009')
   , 'completed'
   , '2025-01-22'
-  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown'))
+  -- , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Sophia Brown')
+  )
   , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson') AND total_price = 150.00)
   , (SELECT card_id FROM card WHERE card_number = '6011 0000 0000 0012')
   , 'completed'
   , '2025-01-23'
-  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson'))
+  -- , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson')
+  )
   , ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Terry Johnson') AND total_price = 150.00)
   , (SELECT card_id FROM card WHERE card_number = '3000 0000 0000 0004')
   , 'completed'
   , '2025-01-24'
-  , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams'));
+  -- , (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jessica Williams')
+  );
 
 COMMIT;
 
@@ -361,14 +366,18 @@ INSERT INTO product_table_category_table
 (product_table_id, category_id)
 VALUES
   ((SELECT product_table_id FROM product_table WHERE product_name = 'Space Shoes') 
-  , (SELECT category_id FROM category_table WHERE name = 'Galactic footwear'))
-  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
-  , (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection'))
-  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
-  , (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series'))
-  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
-  , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles'))
-  , ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
+  , (SELECT category_id FROM category_table WHERE name = 'Galactic Footwear')),
+
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
+  , (SELECT category_id FROM category_table WHERE name = 'Astro Kicks Collection')),
+
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
+  , (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
+
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
+  , (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
+
+  ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
   , (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
 
 COMMIT;
@@ -378,18 +387,23 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO product_table_has_orders 
-(product_table_id, orders_id)
+(product_table_id, orders_id, quantity)        -- added the quantity coulmn
 VALUES
   ((SELECT product_table_id FROM product_table WHERE product_name = 'Space Shoes')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'James Smith' AND total_price = 140.00))
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'James Smith' AND total_price = 140.00)
+  , 2)
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Supernova Sneakers')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Brian Jones' AND total_price = 110.00))
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Brian Jones' AND total_price = 110.00)
+  , 1)
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Pluto Clogs')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Sophia Brown' AND total_price = 65.00))
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Sophia Brown' AND total_price = 65.00)
+  , 1)
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Gravity Boots')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00))
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00)
+  , 3)
   , ((SELECT product_table_id FROM product_table WHERE product_name = 'Cosmic Loafers')
-  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00));
+  , (SELECT orders_id FROM orders WHERE (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE user_id = orders.user_id) = 'Terry Johnson' AND total_price = 150.00)
+  , 1);
 
 COMMIT;
 
