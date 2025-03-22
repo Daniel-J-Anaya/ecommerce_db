@@ -209,11 +209,6 @@ GROUP BY o.orders_id
 ORDER BY SUM(o.total_price) DESC;
 
 
-
-
-
-
-
 -- -------------------------
 -- Efrain Miller Week 11 Query
 -- -------------------------
