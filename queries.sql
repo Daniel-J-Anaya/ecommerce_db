@@ -213,16 +213,13 @@ ORDER BY SUM(o.total_price) DESC;
 -- Efrain Miller Week 11 Query
 -- -------------------------
 SELECT  CONCAT('$', FORMAT(AVG(o.total_price), 2)) AS 'Average Revenue',  
- CONCAT(apg.city, ', ', apg.country) AS 'Shipping Address From',  
-CONCAT(apt.city, ', ', apt.country) AS 'Shipping Address To',  
+ CONCAT(a.city, ', ', a.country) AS 'Shipping Address From',    
 o.orders_id
 FROM orders o
-JOIN address apg 
-ON o.user_id = apg.address_id  
-JOIN address apt 
-ON o.user_id = apt.address_id  
+JOIN address a
+ON o.user_id = a.address_id  
 WHERE o.order_status = 'shipped' 
 AND o.created_at BETWEEN '2024-01-01' AND '2024-12-31'  
-GROUP BY o.orders_id, apg.city, apg.country, apt.city, apt.country
+GROUP BY o.orders_id, a.city, a.country
 HAVING AVG(o.total_price) > 100  
 ORDER BY o.orders_id;
