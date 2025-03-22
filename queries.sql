@@ -213,7 +213,7 @@ ORDER BY SUM(o.total_price) DESC;
 -- Efrain Miller Week 11 Query
 -- -------------------------
 SELECT  CONCAT('$', FORMAT(AVG(o.total_price), 2)) AS 'Average Revenue',  
- CONCAT(a.city, ', ', a.country) AS 'Shipping Address From',    
+ CONCAT(a.city, ', ', a.country) AS 'Address ',    
 o.orders_id
 FROM orders o
 JOIN address a
