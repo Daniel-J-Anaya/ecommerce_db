@@ -217,7 +217,7 @@ SELECT  CONCAT('$', FORMAT(AVG(o.total_price), 2)) AS 'Average Revenue',
 o.orders_id
 FROM orders o
 JOIN address a
-ON o.user_id = a.address_id  
+ON o.user_id = a.user_id  
 WHERE o.order_status = 'shipped' 
 AND o.created_at BETWEEN '2024-01-01' AND '2024-12-31'  
 GROUP BY o.orders_id, a.city, a.country
