@@ -184,17 +184,17 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(order_id, card_id, payment_date, payment_status)               -- The subqueries for order_id aren't working
+(orders_id, card_id, payment_date, payment_status)               
 VALUES
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
      (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), '2025-03-10', 'completed'),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
      (SELECT card_id FROM card WHERE card_number = '2345 6789 0123 4567'), '2025-03-10', 'completed'),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
      (SELECT card_id FROM card WHERE card_number = '3456 7890 1234 5678'), '2025-03-10', 'completed'),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
      (SELECT card_id FROM card WHERE card_number = '4567 8901 2345 6789'), '2025-03-10', 'completed'),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
      (SELECT card_id FROM card WHERE card_number = '5678 9012 3456 7890'), '2025-03-10', 'completed');
 
 COMMIT;
@@ -206,18 +206,18 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO product_table_has_orders 
-(order_id, product_id, quantity)                        -- We need to add a quantity column so we know if more than one item was purchased
+(orders_id, product_id, quantity)                        -- We need to add a quantity column so we know if more than one item was purchased
 VALUES
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     
-     (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 1),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 2),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 1),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 3),
-    ((SELECT order_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 2);
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Helium Heels'), 1),
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Carbon Kicks'), 2),
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Neon Runners'), 1),
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Mercury Slides'), 3),
+    ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Titanium Trainers'), 2);
 
 COMMIT;
 
@@ -231,34 +231,34 @@ START TRANSACTION;
 INSERT INTO product_table_category_table 
     (product_table_id, category_id)
 VALUES
-    ((SELECT product_id FROM product_table WHERE product_name = 'Helium Heels'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Helium Heels'), 
      (SELECT category_id FROM category_table WHERE name = 'Galactic footwear')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Carbon Kicks'), 
      (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Neon Runners'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Neon Runners'), 
      (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Mercury Slides'), 
      (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Titanium Trainers'), 
      (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Oxygen Oxfords'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Oxygen Oxfords'), 
      (SELECT category_id FROM category_table WHERE name = 'Galactic footwear')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Radium Runners'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Radium Runners'), 
      (SELECT category_id FROM category_table WHERE name = 'Astro kicks collection')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Cobalt Cleats'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Cobalt Cleats'), 
      (SELECT category_id FROM category_table WHERE name = 'Cosmic Stride Series')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Krypton Kicks'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Krypton Kicks'), 
      (SELECT category_id FROM category_table WHERE name = 'Interstellar Soles')),
 
-    ((SELECT product_id FROM product_table WHERE product_name = 'Gold Gravity Boots'), 
+    ((SELECT product_table_id FROM product_table WHERE product_name = 'Gold Gravity Boots'), 
      (SELECT category_id FROM category_table WHERE name = 'Nebula Walkers'));
 
 COMMIT;
@@ -290,14 +290,14 @@ START TRANSACTION;
 INSERT INTO product_table_wishlist (wishlist_id, product_table_id)                   -- Need to add to the subqueries so that they also select a specific added_at column so that each user can have more than one wishlist
 VALUES
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Helium Heels')),
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Helium Heels')),
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Jane Smith')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Carbon Kicks')),
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Carbon Kicks')),
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Michael Johnson')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Neon Runners')),
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Neon Runners')),
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'Emily Davis')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Mercury Slides')),
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Mercury Slides')),
     ((SELECT wishlist_id FROM wishlist WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'David Wilson')), 
-     (SELECT product_id FROM product_table WHERE product_name = 'Titanium Trainers'));
+     (SELECT product_table_id FROM product_table WHERE product_name = 'Titanium Trainers'));
 
 COMMIT;
