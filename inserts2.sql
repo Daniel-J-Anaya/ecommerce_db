@@ -184,7 +184,7 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO payments 
-(orders_id, card_id, payment_date, payment_status)               
+(order_id, card_id, payment_date, payment_status)               
 VALUES
     ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')), 
      (SELECT card_id FROM card WHERE card_number = '1234 5678 9012 3456'), '2025-03-10', 'completed'),
