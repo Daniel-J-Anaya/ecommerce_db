@@ -223,3 +223,25 @@ AND o.created_at BETWEEN '2024-01-01' AND '2024-12-31'
 GROUP BY o.orders_id, a.city, a.country
 HAVING AVG(o.total_price) > 100  
 ORDER BY o.orders_id;
+
+-- -------------------------
+-- Andrew Jones Week 11 Query
+-- -------------------------
+
+SELECT ct.name AS 'Category Name',
+	SUM(pt.price)AS 'Total Sales',
+    SUM(ptho.quantity) AS 'Total Items Sold',
+	COUNT(ptho.quantity) AS 'Orders containing Category'
+FROM product_table_has_orders ptho
+INNER JOIN product_table pt
+ON ptho.product_table_id = pt.product_table_id
+INNER JOIN product_table_category_table ptct
+ON ptho.product_table_id = ptct.product_table_id
+INNER JOIN category_table ct
+ON ptct.category_id = ct.category_id
+GROUP BY ct.name
+ORDER BY SUM(pt.price) DESC
+LIMIT 3;
+
+-- This query tells us what the top three most profitable categories of product are that we sell.
+-- We can use this to see which product lines we might want to put more products into.
