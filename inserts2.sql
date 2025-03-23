@@ -206,7 +206,7 @@ COMMIT;
 START TRANSACTION;
 
 INSERT INTO product_table_has_orders 
-(orders_id, product_id, quantity)                        -- We need to add a quantity column so we know if more than one item was purchased
+(orders_id, product_table_id, quantity)                        -- We need to add a quantity column so we know if more than one item was purchased
 VALUES
     ((SELECT orders_id FROM orders WHERE user_id = (SELECT user_id FROM users WHERE CONCAT(first_name, ' ', last_name) = 'John Doe')),     
      (SELECT product_table_id FROM product_table WHERE product_name = 'Helium Heels'), 1),
