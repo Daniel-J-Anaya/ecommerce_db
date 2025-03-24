@@ -245,3 +245,16 @@ LIMIT 3;
 
 -- This query tells us what the top three most profitable categories of product are that we sell.
 -- We can use this to see which product lines we might want to put more products into.
+
+-- -------------------------
+-- Jacob Oliver Week 11 Query
+-- -------------------------
+
+SELECT pt.product_name, SUM(pto.quantity) AS total_quantity_sold
+FROM product_table_has_orders pto
+JOIN product_table pt ON pto.product_table_id = pt.product_table_id
+GROUP BY pt.product_name
+ORDER BY total_quantity_sold DESC
+LIMIT 5;
+
+-- This query finds the top 5 best-selling products by calculating the total quantity sold for each product and sorting them in descending order.
