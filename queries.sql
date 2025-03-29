@@ -258,3 +258,20 @@ ORDER BY total_quantity_sold DESC
 LIMIT 5;
 
 -- This query finds the top 5 best-selling products by calculating the total quantity sold for each product and sorting them in descending order.
+
+-- -------------------------
+-- Efrain Miller Week 12 Query
+-- -------------------------
+CREATE VIEW view_customer_lifetime_value AS
+SELECT 
+    CONCAT(u.first_name, ' ', u.last_name) AS 'Customer Name',
+    COUNT(o.orders_id) AS 'Total Orders',
+    CONCAT('$', FORMAT(SUM(o.total_price), 2)) AS 'Total Spending',
+    CONCAT('$', FORMAT(AVG(o.total_price), 2)) AS 'Average Order Value',
+    COUNT(o.orders_id) / (DATEDIFF(CURDATE(), MIN(o.created_at)) / 30) AS 'Order Frequency (per month)', 
+    MAX(o.created_at) AS 'Last Order Date'
+FROM orders o
+JOIN users u ON o.user_id = u.user_id
+WHERE o.order_status IN ('shipped', 'delivered')
+GROUP BY u.user_id, u.first_name, u.last_name
+ORDER BY SUM(o.total_price) DESC;
