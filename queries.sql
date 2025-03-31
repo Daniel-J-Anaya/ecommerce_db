@@ -191,6 +191,7 @@ ON o.orders_id = p.order_id;
 -- Ian Miller Week 11 Query
 -- -------------------------
 
+
 SELECT CONCAT('$', FORMAT(SUM(o.total_price), 2)) AS 'TOTAL REVENUE'
 ,	o.orders_id AS 'Order Number'
 ,	CONCAT(u.first_name, ' ',u.last_name)
@@ -198,7 +199,7 @@ FROM payments p
 INNER JOIN orders o
 ON p.order_id = o.orders_id
 INNER JOIN users u
-ON p.user_id = u.user_id
+ON o.user_id = u.user_id
 INNER JOIN address a
 ON u.address_id = a.address_id
 WHERE a.state = 'ID'
