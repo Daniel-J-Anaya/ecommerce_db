@@ -102,20 +102,18 @@ ORDER BY o.total_price DESC;
 -- Efrain Mailler Week9
 -- --------------------
 
-SELECT 
-  payments_id,
-  order_id,
-  card_id,
-  payment_status,
-  payment_date,
-  user_id,
+SELECT p.payments_id,o.orders_id,p.card_id,p.payment_status,p.payment_date,u.user_id,
   CASE 
     WHEN payment_status = 'pending' THEN 'Payment is being processed'
     WHEN payment_status = 'completed' THEN 'Payment completed successfully'
     WHEN payment_status = 'failed' THEN 'Payment failed, please retry'
     ELSE 'Unknown payment status'
   END AS payment_status_label
-FROM ecommercedb.payments;
+  FROM payments p	
+   JOIN orders o
+  ON o.orders_id = p.order_id
+  JOIN users u
+  ON u.user_id =o.user_id;
 
 -- -------------------
 -- Ian Miller Week 10
